@@ -1,0 +1,184 @@
+/* MultiStepProgress.module.css */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+:root {
+    --card-bg: #fff;
+    --accent: #a54ea8;
+    --muted: #d9d9d9;
+    --container-pad: 16px;
+}
+
+.container {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* top card that holds the progress line */
+.progressWrap {
+    padding: 14px;
+    display: flex;
+    justify-content: center;
+}
+
+.progressCard {
+    width: 100%;
+    max-width: 1100px;
+    background: linear-gradient(90deg, rgba(165, 78, 168, 0.04), rgba(255, 255, 255, 0));
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 10px 40px rgba(165, 78, 168, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* row with three step icons + text */
+.progressRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+/* each icon + label */
+.stepCell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 1fr;
+    flex: 1 1 0;
+    text-align: center;
+}
+
+.iconWrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 20px rgba(17, 12, 38, 0.04);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+    color: var(--muted);
+}
+
+.iconCircle {
+    display: inline-grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+}
+
+.doneIconWrap {
+    color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(165, 78, 168, 0.06);
+}
+
+.activeIconWrap {
+    color: var(--accent);
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(165, 78, 168, 0.08);
+}
+
+/* label below icon */
+.stepLabel {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* progress bar line below icons */
+.progressLineWrap {
+    position: relative;
+    height: 12px;
+    margin-top: 6px;
+    display: block;
+}
+
+.progressLineBg {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    height: 6px;
+    background: #eee;
+    border-radius: 999px;
+    top: 3px;
+}
+
+.progressLineFill {
+    position: absolute;
+    left: 6%;
+    height: 6px;
+    background: linear-gradient(90deg, var(--accent), rgba(165, 78, 168, 0.6));
+    border-radius: 999px;
+    top: 3px;
+    width: 0%;
+    transition: width 420ms cubic-bezier(.2, .9, .2, 1);
+    z-index: 2;
+}
+
+/* small substage dots (we position them visually on top-left portion) */
+.substageRow {
+    position: absolute;
+    left: 6%;
+    right: 60%;
+    top: -6px;
+    height: 20px;
+}
+
+.substageDot {
+    position: absolute;
+    top: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.08);
+    transform: translateX(-50%);
+}
+
+.substageDotActive {
+    background: var(--accent);
+    box-shadow: 0 6px 18px rgba(165, 78, 168, 0.08);
+}
+
+/* content area where current step component is rendered */
+.contentArea {
+    margin-top: 6px;
+    width: 100%;
+    display: block;
+}
+
+.stepContent {
+    margin-top: 6px;
+}
+
+/* small responsiveness */
+@media (max-width: 760px) {
+    .progressCard {
+        padding: 12px;
+    }
+
+    .iconWrap {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stepLabel {
+        font-size: 12px;
+    }
+
+    .progressLineBg {
+        left: 8%;
+        right: 8%;
+    }
+
+    .progressLineFill {
+        left: 8%;
+    }
+
+    .substageRow {
+        right: 64%;
+    }
+}

@@ -1,0 +1,73 @@
+/* PillBadge.module.css - uses theme variables from index.css */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    font-family: var(--Font_Family);
+    /* Montserrat from index.css */
+  
+    color: var(--Primary_Color);
+    /* purple text */
+
+    --highlight-chars: 5;
+    --highlight-vertical-shrink: 1px;
+}
+
+/* LG appearance — uses your size variables where appropriate */
+.lg {
+    font-size: var(--Font_Size_6);
+    /* 19px in your index.css; adjust to match design */
+    /* if you want 24px as earlier, override --Font_Size_6 in index or set explicit px */
+    padding: 8px 28px;
+    border-radius: 28px;
+    line-height: 1;
+    background: transparent;
+}
+
+.text {
+    position: relative;
+    z-index: 2;
+    font-weight: 500;
+    padding-left: 8px;
+}
+
+/* partial highlight: width = N * ch; color from theme */
+.pill.lg::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: calc(var(--highlight-chars) * 1ch);
+    height: calc(100% - var(--highlight-vertical-shrink));
+    min-width: 28px;
+    background: rgba(153, 51, 153, 0.12);
+    /* fallback RGBA — below we use computed from var */
+    /* Use computed color from variables with alpha (using CSS color functions if browser supports) */
+    /* Example with modern browsers:
+     background: color-mix(in srgb, var(--Primary_Color) 12%, white);
+     If you prefer a consistent approach for all browsers, keep rgba(...) as above.
+  */
+    border-radius: 999px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* mobile */
+@media (max-width: 600px) {
+    .lg {
+        font-size: var(--Font_Size_4);
+        /* e.g. 17px */
+        padding: 6px 20px;
+    }
+
+    .pill {
+        --highlight-chars: 4;
+        --highlight-vertical-shrink: 6px;
+    }
+
+    .pill.lg::before {
+        min-width: 20px;
+    }
+}

@@ -1,0 +1,577 @@
+/* DiamondPage styling - responsive + two-column filters, inline expanded row */
+
+.page {
+    font-family: "Inter", sans-serif;
+    color: #222;
+    /* padding: 24px; */
+}
+.belowPage{
+    padding: 3.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap:1rem;
+    padding: 2rem 2rem 5rem;
+    background: #e9e5e5;
+}
+
+.breadcrumb {
+    justify-content: flex-start;
+    font-size: 13px;
+    color: #828181;
+    margin-bottom: 8px;
+}
+
+.title {
+    display: flex;
+    /* font-family: "Playfair Display", serif; */
+    justify-content: center;
+    font-size: 35px;
+    font-weight: 500;
+    margin: 0 0 6px;
+}
+
+.lead {
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    color: #666;
+    line-height: 1.6;
+}
+
+/* FILTERS */
+.filtersSection {
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.topRow {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+/* 1) Allow the parent row to show overflow from children (prevents clipping) */
+.shapeRow {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin: 0px 0;
+    padding: 6px 0;
+
+    /* IMPORTANT: visible so pseudo-element can render outside the button */
+    overflow: visible;
+}
+
+/* 2) Scroller: give breathing room on both sides so active outline never touches container edge */
+.shapeScroller {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    /* horizontal scroll enabled */
+    overflow-x: auto;
+    overflow-y: visible;
+    -webkit-overflow-scrolling: touch;
+
+    /* IMPORTANT: extra padding left/right so the active ::before can extend without clipping */
+    padding: 10px 18px;
+    /* top/bottom 10px, left/right 18px */
+    width: calc(100% - 140px);
+}
+
+/* Ensure the scroller area does not crop children (some browsers may clip children inside flex) */
+.shapeScroller>* {
+    overflow: visible;
+}
+
+/* 3) Make each button allow overflow so pseudo-element is not cut */
+.shapeBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 82px;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 120ms ease, box-shadow 120ms ease;
+    border-radius: 12px;
+
+    /* allow pseudo-element to extend outside this element */
+    position: relative;
+    overflow: visible;
+    z-index: 1;
+    /* keep above baseline content if needed */
+}
+.shapeImg {
+    width: 56px;
+    height: 56px;
+}
+/* 4) adjust the active pseudo-element so it's a bit smaller and sits fully inside the padding area */
+/*    also set z-index so it doesn't get painted under other elements */
+.shapeActive {
+    position: relative;
+    border-radius: 14px;
+    /* subtle inner glow if you like */
+    box-shadow: 0 0 0 3px rgba(243, 184, 176, 0.08) inset;
+}
+
+.shapeActive::before {
+    content: "";
+    position: absolute;
+    /* smaller negative offsets reduce chance of clipping; parent padding now makes room */
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+
+    border-radius: 18px;
+    border: 2px solid #f3b8b0;
+    /* pink frame */
+    pointer-events: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    z-index: 0;
+    /* sits visually behind the button content but above background */
+}
+
+/* 5) small tweak: ensure left-most and right-most items have extra margin so frame never gets cut at edges */
+.shapeScroller> :first-child {
+    margin-left: 6px;
+}
+
+.shapeScroller> :last-child {
+    margin-right: 6px;
+}
+
+/* 6) responsive shrink adjustments */
+@media (max-width: 700px) {
+    .shapeLabel {
+        min-width: 90px;
+        max-width: 110px;
+        font-size: 14px;
+    }
+
+    .shapeScroller {
+        gap: 12px;
+        padding: 8px 12px;
+    }
+
+    .shapeBtn {
+        min-width: 72px;
+        padding: 8px;
+    }
+
+    .shapeImg {
+        width: 46px;
+        height: 46px;
+    }
+
+    .shapeName {
+        font-size: 12px;
+    }
+}
+
+/* TWO-COLUMN FILTER LAYOUT */
+.filtersTwoCol {
+    display: flex;
+    gap: 28px;
+    margin-top: 8px;
+    align-items: flex-start;
+}
+
+.col {
+    flex: 1;
+    min-width: 300px;
+}
+
+.block {
+    margin-bottom: 18px;
+}
+
+.blockLabel {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #333;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.info {
+    font-size: 14px;
+    color: #888;
+}
+
+/* range row helper */
+.rangeRow {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pill {
+    background: #f2f2f2;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+/* select box styling */
+.selectBox {
+    width: 100%;
+    padding: 14px 12px;
+    border: 2px solid #e8d6d3;
+    border-radius: 2px;
+    font-size: 16px;
+    background: #fff;
+    appearance: none;
+    outline: none;
+}
+
+/* advanced area */
+.advancedSection {
+    margin-top: 10px;
+    padding-top: 10px;
+    /* border-top: 1px solid #f3f3f3; */
+}
+
+.advTwoCol {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+}
+
+.advCol {
+    flex: 1;
+    min-width: 220px;
+}
+
+.fancyRow {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.fancySwatch {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #eee;
+    background: #fff;
+    cursor: pointer;
+}
+
+.fancyActive {
+    outline: 2px solid #f3b8b0;
+}
+
+/* bottom controls */
+.bottomControls {
+    display: flex;
+   flex:1 1 0;
+    align-items: center;
+    padding-top: 8px;
+    /* border-top: 1px solid #f3f3f3; */
+    margin-top: 12px;
+}.bottomControls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* centers by default */
+    position: relative;
+    /* allows absolute positioning for the left element */
+    padding-top: 8px;
+    /* border-top: 1px solid #f3f3f3; */
+    margin-top: 12px;
+}
+
+/* Place fast shipping on far left */
+.fastShipping {
+    position: absolute;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #444;
+    font-size: 14px;
+}
+
+/* Centered button stays centered naturally */
+.centerControl {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.advToggleBtn {
+    background: #6c6c6c;
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+}
+
+.advToggleBtn:hover {
+    background: #555;
+}
+
+/* ✅ Responsive adjustment */
+@media (max-width: 768px) {
+    .bottomControls {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fastShipping {
+        position: static;
+        margin-bottom: 10px;
+    }
+}
+
+.fastShipping {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.centerControl {
+    display: flex;
+    align-items: center;
+}
+
+.advToggleBtn {
+    background: #6c6c6c;
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+/* clear filters */
+.clearWrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 6px;
+}
+
+.clearFilters {
+    background: transparent;
+    border: none;
+    text-decoration: underline;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    color: #222;
+}
+
+/* results count */
+.resultsHeader {
+    padding: 18px 0;
+}
+
+.resultsCount {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* TABLE */
+.outerWrapper {
+    width: 100%;
+    overflow: auto;
+}
+
+.tableWrapper {
+    margin-top: 8px;
+}
+
+.Dynamic {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: inherit;
+}
+
+.Dynamic thead tr {
+    background: #efefef;
+}
+
+.Dynamic th,
+.Dynamic td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+}
+
+.Dynamic th {
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+
+/* main row */
+.rowMain td {
+    vertical-align: middle;
+}
+
+/* view button */
+.viewBtn {
+    padding: 10px 16px;
+    background: transparent;
+    border: 2px solid #9b9b9b;
+    cursor: pointer;
+}
+
+/* expanded row styling */
+.rowExpanded td {
+    background: #fff;
+    padding: 0;
+    border: 0;
+}
+
+.expandedPanel {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px;
+    border: 2px solid #bfbfbf;
+    margin: 8px 0;
+    background: #fff;
+}
+
+.leftThumb {
+    width: 260px;
+    flex: 0 0 260px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.expandedThumb {
+    max-width: 100%;
+    border-radius: 50%;
+    display: block;
+}
+
+.thumbPlaceholder {
+    width: 220px;
+    height: 220px;
+    background: #f2f2f2;
+    border-radius: 8px;
+}
+
+.centerDetails {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.expandedTitle {
+    font-size: 20px;
+    margin: 0 0 8px;
+}
+
+.helpLink {
+    margin: 6px 0 12px;
+}
+
+.metaGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+    margin: 10px 0;
+    font-size: 15px;
+}
+
+.moreLink {
+    text-decoration: underline;
+    color: #333;
+    font-weight: 600;
+    margin-top: 8px;
+    display: inline-block;
+}
+
+.rightCtas {
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-end;
+}
+
+.closeWrap {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.closeBtnSmall {
+    background: transparent;
+    border: 2px solid #9b9b9b;
+    padding: 8px 14px;
+    cursor: pointer;
+}
+
+.ctaRow {
+    display: flex;
+    gap: 12px;
+    margin-top: 40px;
+}
+
+.addToCart {
+    background: #6f6f6f;
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    cursor: pointer;
+}
+
+.addToRing {
+    background: #f4a99f;
+    color: #fff;
+    border: none;
+    padding: 14px 24px;
+    cursor: pointer;
+}
+
+/* responsive */
+@media (max-width: 1000px) {
+    .filtersTwoCol {
+        flex-direction: column;
+    }
+
+    .advTwoCol {
+        flex-direction: column;
+    }
+
+    .shapeScroller {
+        gap: 8px;
+    }
+
+    .leftThumb {
+        display: none;
+    }
+
+    .rightCtas {
+        width: 100%;
+        align-items: flex-start;
+    }
+
+    .expandedPanel {
+        flex-direction: column;
+    }
+
+    .shapeLabel {
+        width: 90px;
+        font-size: 13px;
+    }
+}

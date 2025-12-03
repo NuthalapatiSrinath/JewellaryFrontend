@@ -1,0 +1,229 @@
+:root {
+    /* --- Theme Colors --- */
+    --author-color: #6e6767;
+    --star-color: #8fd51e;
+    --title-color: #111;
+    --body-color: #8b8b8b;
+    --border-color: #e7e7e7;
+    --card-bg: #fff;
+
+    /* --- Font Sizes --- */
+    --author-size: 17px;
+    --star-size: 28px;
+    --title-size: 18px;
+    --body-size: 16px;
+    --thumb-size: 64px;
+
+    /* --- Layout --- */
+    --card-gap: 10px;
+    --card-h: clamp(260px, 28vw, 380px);
+    --card-h-large: calc(var(--card-h) + 34px);
+    --card-w-small: clamp(320px, 28vw, 440px);
+    --card-w-large: clamp(420px, 36vw, 620px);
+}
+
+/* Section container */
+.wrap {
+    background: transparent;
+    color: var(--title-color);
+    padding: 5rem 3rem;
+}
+
+/* Heading + blurb */
+.header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.blurb {
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    line-height: 1.8;
+    /* max-width: 700px; */
+    margin: 0 auto 32px;
+}
+
+/* Row of 3 cards */
+.row3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--card-gap);
+}
+
+/* --- Card base --- */
+.card {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: var(--card-bg);
+    /* border-radius: 8px; */
+    height: var(--card-h);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.card.side {
+    width: var(--card-w-small);
+}
+
+.card.center {
+    width: var(--card-w-large);
+    height: var(--card-h-large);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+    z-index: 1;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.25s ease;
+}
+
+.card:hover {
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Preview (inside the same card) --- */
+.preview {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    z-index: 2;
+    display: flex;
+    align-items: stretch;
+}
+
+.previewVisible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.previewInner {
+    width: 100%;
+    height: 100%;
+    background: var(--card-bg);
+    /* border-radius: 8px; */
+    padding: 20px 20px 18px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* border: 1px solid var(--border-color); */
+}
+
+/* Author + stars (stacked) */
+.previewHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.previewAuthor {
+    font-size: var(--author-size);
+    font-weight: 500;
+    color: var(--author-color);
+}
+
+.previewStars {
+    color: var(--star-color);
+    font-size: var(--star-size);
+    line-height: 1;
+}
+
+.previewCount {
+    color: #222;
+    font-weight: 500;
+    font-size: 15px;
+    margin-left: 4px;
+}
+
+/* Title + Body */
+.previewTitle {
+    margin: 10px 0 8px;
+    font-size: var(--title-size);
+    font-weight: 500;
+    color: var(--title-color);
+    line-height: 1.25;
+}
+
+.previewBody {
+    color: var(--body-color);
+    font-size: var(--body-size);
+    line-height: 1.6;
+    margin: 0;
+    /* max-height: 88px; */
+    overflow: hidden;
+}
+
+/* Separator + footer */
+.previewSep {
+    border: none;
+    border-top: 1px solid var(--border-color);
+    margin: 12px 0;
+}
+
+.previewFooter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.previewThumb {
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.previewExtra {
+    font-size: 18px;
+    color: #111;
+    font-weight: 500;
+}
+
+/* Small screens */
+@media (max-width: 900px) {
+    .preview {
+        position: fixed;
+        left: 12px !important;
+        right: 12px !important;
+        bottom: 18px !important;
+        width: auto;
+        height: auto;
+        transform: translateY(6px);
+    }
+
+    .previewVisible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .previewInner {
+        padding: 16px;
+    }
+}/* --- Thumbnail: force fixed size and prevent global rules from overriding --- */
+/* target the img element with the previewThumb class specifically */
+.previewFooter img.previewThumb,
+.previewThumb {
+    width: 64px !important;
+    height: 64px !important;
+    max-width: 64px !important;
+    max-height: 64px !important;
+    flex: 0 0 64px !important;
+    /* don't grow or shrink */
+    object-fit: cover !important;
+    display: block !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0, 0, 0, 0.04) !important;
+    background: #f7f7f7 !important;
+}

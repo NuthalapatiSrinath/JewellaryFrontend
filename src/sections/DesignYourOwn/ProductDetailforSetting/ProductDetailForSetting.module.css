@@ -1,0 +1,539 @@
+/* ProductDetail.module.css
+   Layout: hero (handled by HeroBanner), top controls row, main 2-column area,
+   left = 55% images, right = 45% details (no max-width, uses padding),
+   responsive stacks on small screens.
+*/
+
+:root {
+    --page-pad: 28px;
+    --gutter: 28px;
+    --left-width: 55%;
+    --right-width: 45%;
+    --bg: var(--Background_Color, #fcfbff);
+    --shadow-sm: 0 6px 18px rgba(17, 12, 38, 0.04);
+    --accent: var(--Primary_Color, #993399);
+    --pill-radius: 12px;
+    --radius: 10px;
+    --font: var(--Font_Family, 'Montserrat', sans-serif);
+}
+
+/* page wrapper */
+.page {
+    padding: var(--page-pad);
+    background: var(--bg);
+    font-family: var(--font);
+    color: rgba(0, 0, 0, 0.88);
+    box-sizing: border-box;
+}
+
+/* top small controls row (Back / View details) */
+.rowControls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+}
+
+.leftControl {
+    flex: 0 0 auto;
+}
+
+.centerControl {
+    flex: 1 1 auto;
+}
+
+.rightControl {
+    flex: 0 0 auto;
+}
+
+.backLink {
+    color: #6b6b6b;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* main layout — left images and right details */
+.main {
+    display: flex;
+    gap: var(--gutter);
+    align-items: flex-start;
+}
+
+/* left column (images) — fixed fraction of available width */
+.left {
+    flex: 0 0 var(--left-width);
+    box-sizing: border-box;
+    padding-right: 6px;
+}
+
+/* right column (details) */
+.right {
+    flex: 0 0 var(--right-width);
+    box-sizing: border-box;
+}
+
+/* 2x2 grid inside left column */
+.grid2x2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 260px;
+    /* uniform cell height (keeps layout consistent) */
+    gap: 18px;
+}
+
+/* each cell */
+.cell {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* inner wrapper for first cell which has overlay */
+.cellInner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* image style within cell */
+.cellImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* overlay CTA on first cell */
+.overlayBtn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10, 10, 10, 0.6);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 18px;
+    border: none;
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+    cursor: pointer;
+    z-index: 4;
+}
+
+.overlayIcon {
+    transform: rotate(-20deg);
+    font-size: 18px;
+}
+
+.overlayText {
+    font-weight: 600;
+    font-size: 15px;
+}
+
+/* right column spacing (keeps ProductInfoPanel from stretching weirdly) */
+.right>* {
+    width: 100%;
+}
+
+/* Recommendation area */
+.recommend {
+    margin-top: 48px;
+}
+
+.recommend :global(.pill) {
+    /* if your PillBadge uses its own module classes, this ensures the pill inherits spacing;
+     keep it light — PillBadge already handles visuals */
+    margin-bottom: 18px;
+    display: inline-block;
+}
+
+/* grid of product cards below */
+.recoGrid {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+}
+
+/* responsive behaviour */
+@media (max-width: 1100px) {
+    :root {
+        --left-width: 60%;
+        --right-width: 40%;
+    }
+
+    .grid2x2 {
+        grid-auto-rows: 220px;
+    }
+
+    .recoGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .left,
+    .right {
+        flex-basis: 100%;
+        width: 100%;
+    }
+
+    .grid2x2 {
+        grid-auto-rows: 200px;
+    }
+
+    .recoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid2x2 {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 160px;
+        gap: 12px;
+    }
+
+    .recoGrid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .overlayText {
+        font-size: 13px;
+        padding: 8px 14px;
+    }
+
+    .cell {
+        border-radius: 8px;
+    }
+
+    .page {
+        padding: 16px;
+    }
+}
+
+/* Controls row (top of product detail) */
+.rowControls {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    /* justify-content: space-between; */
+    gap: 12px;
+    padding: 1px 8px;
+    box-sizing: border-box;
+}
+
+/* Left/back link */
+.leftControl {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+}
+
+.backLink {
+    background: transparent;
+    border: none;
+    padding: 6px 8px;
+    color: #4b4b4b;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .12s ease, transform .08s ease;
+    display: inline-block;
+}
+
+/* .backLink:hover,
+.backLink:focus {
+    color: #993399;
+    text-decoration: underline;
+    transform: translateY(-1px);
+} */
+
+/* center area - houses the view details link */
+.centerControl {
+    flex: 1 1 auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /* avoid accidental interactions on empty center */
+}
+
+/* Right control (keeps original layout space for CTA etc) */
+.rightControl {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 0 0 auto;
+}
+
+/* View details link (center) — not a button, plain link with icon */
+.viewDetailsLink {
+    pointer-events: auto;
+    /* enable clicks for this centered link */
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #545252;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color .12s ease, transform .08s ease;
+    align-self: center;
+}
+
+/* Small circular info icon left of the text */
+.infoIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: #191819;
+    font-weight: 600;
+    font-size: 14px;
+    box-shadow: 0 2px 6px rgba(153, 51, 153, 0.06);
+}
+
+
+
+
+
+
+.viewDetailsLink:hover .infoIcon,
+.viewDetailsLink:focus .infoIcon {
+    box-shadow: 0 6px 18px rgba(153, 51, 153, 0.08);
+}
+
+/* accessibility focus ring */
+.viewDetailsLink:focus-visible,
+.backLink:focus-visible {
+    outline: 3px solid rgba(153, 51, 153, 0.12);
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+/* Responsive: stack controls on small screens */
+@media (max-width: 720px) {
+    .rowControls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .leftControl,
+    .rightControl {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .centerControl {
+        pointer-events: auto;
+        order: 2;
+        margin: 0 auto;
+    }
+
+    .viewDetailsLink {
+        font-size: 13px;
+    }
+
+    .infoIcon {
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+    }
+}
+
+/* -------------------------
+   Added styles for "Can be set with"
+   ------------------------- */
+.canBeSetWith {
+    margin-top: 28px;
+    background: #f8f4fb;
+    border-radius: var(--radius);
+    /* padding: 18px 20px; */
+    box-shadow: var(--shadow-sm);
+}
+
+.canBeSetWith h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #4b2d73;
+    margin-bottom: 14px;
+}
+
+.shapeList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    /* gap: 8px; */
+}
+
+.shapeItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(153, 51, 153, 0.06);
+    border-radius: var(--pill-radius);
+    padding: 8px 12px;
+    transition: background 0.2s ease;
+}
+
+/* .shapeItem:hover {
+    background: rgba(240, 215, 240, 0.03);
+} */
+
+.shapeLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shapeIcon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.shapeLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.caratRange {
+    font-size: 13px;
+    color: #555;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+    .canBeSetWith {
+        padding: 14px;
+    }
+
+    .shapeItem {
+        padding: 6px 10px;
+    }
+}
+/* "Can be set with" — flat, no gaps, no rounded corners */
+.canBeSetWith {
+    /* margin-top: 28px; */
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.canBeSetWith h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    /* margin-bottom: 10px; */
+}
+
+.shapeList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /* border-top: 1px solid #e8e8e8; */
+    border-radius: 0;
+}
+
+.shapeItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 6px;
+    /* border-bottom: 1px solid #e8e8e8; */
+    margin: 0;
+    border-radius: 0 !important;
+    background: transparent;
+    box-shadow: none;
+}
+
+.shapeItem:nth-child(odd) {
+    background-color: #f9eff9;
+    /* soft light pink row */
+}
+
+.shapeItem:nth-child(even) {
+    background-color: #ffffff;
+    /* white row */
+}
+
+.shapeLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shapeIcon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+.shapeLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.caratRange {
+    font-size: 14px;
+    color: #000;
+    flex-shrink: 0;
+    text-align: right;
+    width: 120px;
+}
+
+/* Remove any inherited rounding or margin from global styles */
+.shapeItem,
+.shapeItem * {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.shapeList,
+.shapeItem {
+    margin: 0 !important;
+}
+
+/* Hover color effect (optional subtle) */
+/* .shapeItem:hover {
+    background-color: #f3e1f3;
+} */
+
+@media (max-width: 768px) {
+    .shapeItem {
+        padding: 8px 4px;
+    }
+
+    .caratRange {
+        width: auto;
+        font-size: 13px;
+    }
+}

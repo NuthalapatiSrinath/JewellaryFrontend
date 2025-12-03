@@ -1,0 +1,108 @@
+/* src/components/UserMenu/UserMenu.module.css */
+
+.wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Match Topbar.module.css .iconBtn exactly */
+.iconBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px; /* Changed from 36px to match Topbar */
+  width: 38px; /* Changed from 36px to match Topbar */
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #111; /* Darker black to match */
+  transition: background 0.18s, color 0.18s;
+}
+
+.iconBtn:hover {
+  background: #ecf4ff;
+  color: #993399; /* var(--primary) */
+}
+
+/* Dropdown Menu */
+.menu {
+  position: absolute;
+  top: calc(100% + 12px); /* Slight gap */
+  right: -8px; /* Align slightly right to clear padding */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 8px;
+  min-width: 220px; /* Wider for better look */
+  z-index: 9999; /* Ensure it sits on top of everything */
+  animation: slideIn 0.2s ease forwards;
+  transform-origin: top right;
+}
+
+/* Triangle/Arrow pointing to icon */
+.menu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 20px;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  transform: rotate(45deg);
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.header {
+  font-weight: 600;
+  padding: 8px 12px;
+  color: #111;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 6px;
+}
+
+.item {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #444;
+  display: block;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.item:hover {
+  background: #f7f7f7;
+  color: #000;
+}
+
+.danger {
+  color: #d32f2f;
+}
+
+.danger:hover {
+  background: #fff0f0;
+  color: #b71c1c;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

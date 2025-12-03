@@ -1,0 +1,52 @@
+.getring-wrapper {
+    width: 100%;
+}
+
+.getring-container {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    /* left forms, right summary */
+    gap: 24px;
+    align-items: start;
+    box-sizing: border-box;
+}
+
+/* Left column stacks the two cards with spacing */
+.getring-left {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Right column with sticky summary card */
+.getring-right {
+    position: relative;
+}
+
+.getring-sticky {
+    position: sticky;
+    top: 24px;
+}
+
+/* Responsive: stack columns */
+@media (max-width: 992px) {
+    .getring-container {
+        grid-template-columns: 1fr;
+        /* stack */
+    }
+
+    .getring-sticky {
+        position: static;
+    }
+}
+
+@media (max-width: 560px) {
+    .getring-container {
+        margin: 16px auto;
+        padding: 0 12px;
+        gap: 16px;
+    }
+}

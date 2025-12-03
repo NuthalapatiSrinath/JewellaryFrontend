@@ -1,0 +1,124 @@
+.sb-card {
+    width: 100%;
+    max-width: 742px;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(0, 0, 0, .05);
+    padding: 24px;
+    box-sizing: border-box;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color: #1b1b1b;
+}
+
+.sb-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 6px;
+}
+
+.sb-subtext {
+    margin: 0 0 16px;
+    color: #666;
+    font-size: 14px;
+}
+
+.sb-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.sb-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.sb-field label {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.sb-field input,
+.sb-field textarea,
+.sb-select-wrap select {
+    width: 100%;
+    border: 1px solid #e3d8ea;
+    background: #faf5f9;
+    /* light pinkish like mock */
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 14px;
+    outline: none;
+    transition: border .2s, background .2s;
+}
+
+.sb-field textarea {
+    resize: vertical;
+}
+
+.sb-field input:focus,
+.sb-field textarea:focus,
+.sb-select-wrap select:focus {
+    background: #fff;
+    border-color: #b26db9;
+}
+
+/* Select with flag + caret */
+.sb-select-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.sb-select-wrap .sb-flag {
+    position: absolute;
+    left: 10px;
+    pointer-events: none;
+    font-size: 16px;
+}
+
+.sb-select-wrap select {
+    appearance: none;
+    padding-left: 38px;
+    /* space for flag */
+}
+
+.sb-select-wrap .sb-caret {
+    position: absolute;
+    right: 12px;
+    font-size: 14px;
+    color: #7b7b7b;
+    pointer-events: none;
+}
+
+/* Errors */
+.has-error {
+    border-color: #e74c3c !important;
+    background: #fff5f5 !important;
+}
+
+.sb-error {
+    margin-top: 6px;
+    color: #e74c3c;
+    font-size: 12px;
+}
+
+/* Actions (button row) */
+.sb-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .sb-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    .sb-card {
+        padding: 16px;
+    }
+}

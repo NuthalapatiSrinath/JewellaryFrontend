@@ -1,0 +1,516 @@
+:root {
+    --pc-radius: 16px;
+    --pc-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}/* === Hover image swap (NEW) === */
+.imageWrap {
+    position: relative;
+    /* enable overlay stacking */
+}
+
+.image {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: opacity .3s ease;
+    /* smooth fade out on hover */
+}
+
+.imageHover {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* keep aspect cover; adjust if you prefer contain */
+    opacity: 0;
+    /* hidden by default */
+    pointer-events: none;
+    /* don't block clicks */
+    transition: opacity .3s ease;
+}
+
+/* Swap on hover — if .imageHover exists, it will fade in */
+.card:hover .imageHover {
+    opacity: 1;
+}
+
+.card:hover .image {
+    opacity: 0;
+}
+
+/* =========================
+   CARD BASE
+========================= */
+.card {
+    background: var(--White_Color);
+    border-radius: var(--pc-radius);
+    box-shadow: var(--pc-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+    max-width: 310px;
+    /* fixed card width for consistent layout */
+}
+
+.card:hover {
+    /* transform: translateY(-0.5px); */
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* =========================
+   IMAGE WRAPPER (FIXED BOX)
+   - Use exact design box 302 x 271 (w x h)
+   - Keeps every card identical regardless of source image aspect
+========================= */
+.imageWrap {
+    position: relative;
+    background: #f6f4f1;
+    width: 100%;
+    height: 271px;
+    /* FIXED image box height (design height) */
+    max-height: 271px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    cursor: pointer;
+    /* indicates hoverable image area */
+}
+
+/* Keeps all images centered and scaled properly inside the fixed box */
+.image {
+    /* Let the image use as much space as possible while preserving aspect ratio.
+     Using height:100% ensures tall images fill the box and wide images scale proportionally. */
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+/* ===== Image hover effect (scale) =====
+   - scales image smoothly when user hovers the image area
+   - keeps overflow hidden so it never breaks layout
+*/
+.imageWrap:hover .image {
+    transform: scale(1.06);
+}
+
+/* ======================
+   HEART BUTTON (28x28)
+====================== */
+.heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(219, 202, 202, 0.4);
+    /* #DBCACA at 40% opacity */
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    z-index: 3;
+}
+
+/* Heart SVG inside */
+.heartIcon {
+    width: 17px;
+    height: 17px;
+    fill: #ffffff;
+    /* white heart icon */
+    transition: fill 0.25s ease;
+}
+
+/* On hover or click */
+.heart:hover {
+    transform: scale(1.05);
+}
+
+/* When active (clicked) */
+.heartActive {
+    background: #ffffff;
+    /* turns solid white */
+}
+
+.heartActive .heartIcon {
+    fill: #e0003b;
+    /* bright red heart */
+}
+
+.body {
+    padding: 16px 16px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    cursor: pointer;
+    /* clicking the body navigates */
+}
+
+/* =========================
+   COLOR SWATCHES
+========================= */
+.swatchRow {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 10px;
+}
+
+.swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--White_Color);
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.swatch:hover {
+    transform: scale(1.1);
+}
+
+.swatchActive {
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+/* Metal Text */
+.metalText {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    font-weight: 500;
+    color: #a9bd0b;
+}
+
+/* =========================
+   PRODUCT INFO
+========================= */
+.title {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.80);
+    margin-bottom: 3px;
+}
+
+.subtitle {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.7);
+    margin-bottom: 12px;
+}
+
+.price {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--Black_Color);
+}
+
+/* =========================
+   RESPONSIVE LAYOUT
+========================= */
+@media (max-width: 768px) {
+    .card {
+        max-width: 47%;
+    }
+
+    .imageWrap {
+        aspect-ratio: 1 / 1;
+    }
+
+    .heart {
+        width: 28px;
+        height: 28px;
+        font-size: 16px;
+    }
+
+    .title,
+    .subtitle,
+    .price {
+        font-size: 14.5px;
+    }
+
+    .metalText {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        max-width: 100%;
+    }
+
+    .heart {
+        top: 8px;
+        right: 8px;
+        width: 26px;
+        height: 26px;
+        font-size: 14px;
+    }
+
+    .swatch {
+        width: 18px;
+        height: 18px;
+    }
+
+    .metalText {
+        font-size: 13px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+}
+/* ----------------------
+   Mobile / small-width overrides
+   (append these only, don't replace existing rules)
+   ---------------------- */
+
+/* Phones / small devices (up to 480px) */
+@media (max-width: 480px) {
+
+    /* make cards full-width in mobile lists */
+    .card {
+        max-width: 100%;
+        margin: 0 0 16px;
+    }
+
+    /* remove fixed height so tall/odd images don't cause overflow */
+    .imageWrap {
+        height: auto !important;
+        max-height: none !important;
+        aspect-ratio: 1 / 1 !important;
+        /* square box for neat look */
+        padding: 6px 0;
+        /* slight breathing room */
+    }
+
+    .image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        /* fill nicely on mobile */
+    }
+
+    .body {
+        padding: 12px 12px 16px;
+    }
+
+    .heart {
+        top: 8px;
+        right: 8px;
+        width: 26px;
+        height: 26px;
+    }
+
+    .heartIcon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .swatch {
+        width: 18px;
+        height: 18px;
+    }
+
+    .swatchRow {
+        gap: 8px;
+    }
+
+    .metalText {
+        font-size: 13px;
+    }
+
+    .title {
+        font-size: 15px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+    .price {
+        font-size: 15px;
+    }
+
+    /* ensure the card never causes horizontal scroll (defensive) */
+    .card,
+    .imageWrap,
+    .image {
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+/* Narrow phones (<= 375px) — tighten up spacing */
+@media (max-width: 375px) {
+    .card {
+        margin-bottom: 14px;
+    }
+
+    .body {
+        padding: 10px 10px 14px;
+    }
+
+    .swatch {
+        width: 16px;
+        height: 16px;
+    }
+
+    .heart {
+        width: 24px;
+        height: 24px;
+        top: 6px;
+        right: 6px;
+    }
+
+    .heartIcon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .title {
+        font-size: 14.5px;
+    }
+
+    .subtitle {
+        font-size: 13.5px;
+    }
+
+    .metalText {
+        font-size: 12.5px;
+    }
+}
+
+/* Very narrow (<= 320px) — single-column, smallest readable sizes */
+@media (max-width: 320px) {
+    .card {
+        max-width: 100%;
+        margin-bottom: 12px;
+        border-radius: 12px;
+    }
+
+    .imageWrap {
+        aspect-ratio: 1 / 1;
+        padding: 4px 0;
+    }
+
+    .body {
+        padding: 8px 10px 12px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+
+    .subtitle {
+        font-size: 13px;
+    }
+
+    .price {
+        font-size: 14px;
+    }
+
+    .heart {
+        width: 22px;
+        height: 22px;
+        top: 6px;
+        right: 6px;
+    }
+
+    .swatch {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Tablet / small landscape phones (481px - 768px)
+   aim for two-column layout compatibility (cards take ~47% as before) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .card {
+        max-width: 47%;
+        margin-bottom: 14px;
+    }
+
+    .imageWrap {
+        aspect-ratio: 1 / 1;
+        height: auto;
+        max-height: none;
+    }
+
+    .image {
+        object-fit: cover;
+    }
+
+    .body {
+        padding: 12px;
+    }
+
+    .heart {
+        width: 28px;
+        height: 28px;
+        top: 8px;
+        right: 8px;
+    }
+
+    .swatch {
+        width: 20px;
+        height: 20px;
+    }
+
+    .title,
+    .subtitle,
+    .price {
+        font-size: 14.5px;
+    }
+}
+
+/* Defensive: avoid horizontal overflow created by images or padding */
+@media (max-width: 1024px) {
+
+    .card,
+    .imageWrap,
+    .image,
+    .body {
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+}
+
+/* Accessibility tweak: increase tap target on touch devices */
+@media (hover: none) and (pointer: coarse) {
+    .heart {
+        width: 36px;
+        height: 36px;
+    }
+
+    .heartIcon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .swatch {
+        width: 22px;
+        height: 22px;
+    }
+}

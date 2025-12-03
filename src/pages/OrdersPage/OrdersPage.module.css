@@ -1,0 +1,116 @@
+:root {
+    --lavender-50: #f4e9f4;
+    --panel: #ffffff;
+    --ink-100: rgba(0, 0, 0, 1);
+    --ink-80: rgba(0, 0, 0, 0.8);
+    --ink-60: rgba(0, 0, 0, 0.6);
+    --success: #19c37d;
+    --danger: #c0392b;
+    --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    --radius: 12px;
+}
+
+.page {
+    padding: 24px 28px 40px;
+}
+
+.pageTitle {
+    margin: 0 0 14px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: var(--ink-100);
+}
+
+.list {
+    background: var(--lavender-50);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+}
+
+.orderCard {
+    background: var(--panel);
+    border-radius: 10px;
+    padding: 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.orderCard+.orderCard {
+    margin-top: 18px;
+}
+
+.orderHead {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 2px 10px;
+}
+
+.statusBadge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-size: 16px;
+    color: #fff;
+    flex: 0 0 auto;
+}
+
+.delivered {
+    background: var(--success);
+}
+
+.cancelled {
+    background: #b8b8b8;
+}
+
+.meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.statusText {
+    font-weight: 600;
+    color: var(--ink-100);
+    font-size: 15px;
+}
+
+.dateText {
+    color: var(--ink-60);
+    font-size: 12px;
+}
+
+.orderBody {
+    background: #f4e9f4;
+    border-radius: 12px;
+    padding: 14px;
+}
+
+/* Read-only tweaks — keep delete hidden, show stepper */
+.orderBody :global(.deleteBtn) {
+    display: none !important;
+}
+
+/* Blend CartCard with this container */
+.orderBody :global(.card) {
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .page {
+        padding: 16px;
+    }
+
+    .list {
+        padding: 14px;
+    }
+
+    .orderBody {
+        padding: 10px;
+    }
+}

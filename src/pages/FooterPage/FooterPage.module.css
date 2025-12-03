@@ -1,0 +1,275 @@
+/* src/components/FooterPage.module.css */
+
+/* Colors tuned to match your Figma */
+:root {
+    --footer-bg: #1c1b19;
+    --logo-pink: #f5ebf5;
+    --muted-white: rgba(255, 255, 255, 0.7);
+    --muted-white-2: rgba(255, 255, 255, 0.6);
+    --divider: rgba(255, 255, 255, 0.06);
+    --heading-size: 20px;
+    --text-size: 17px;
+}
+
+/* overall wrapper - centers and gives page spacing */
+.footerWrap {
+    width: 100%;
+    display: block;
+    background: var(--footer-bg);
+}
+
+/* white strip above the footer (full width, thin) */
+.topWhiteBar {
+    height: 20px;
+    background: #ffffff;
+    width: 100%;
+}
+
+/* main footer area */
+.footer {
+    position: relative;
+    margin: 0 auto;
+    padding: 56px 40px 48px;
+    background: var(--footer-bg);
+    color: white;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+/* logo circle overlapping top of the footer */
+.logoWrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -28px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--logo-pink);
+    box-shadow: none;
+    z-index: 3;
+}
+
+/* internal logo image - adjust to match your logo proportions */
+.logo {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+/* brand title below the logo */
+.brand {
+    margin-top: 16px;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #ffffff;
+}
+
+/* thin top divider (under brand, above columns) */
+.topDivider {
+    width: 100%;
+    height: 1px;
+    background: var(--divider);
+    margin: 28px 0;
+    opacity: 1;
+}
+
+/* columns layout — DESKTOP uses flex (unchanged) */
+.columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    text-align: left;
+    padding: 0 40px;
+}
+
+.column2 {
+    margin-right: 35px;
+}
+
+.column2 h4 {
+    font-size: var(--heading-size);
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.column2 p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: var(--muted-white);
+    cursor: default;
+    transition: color 0.18s ease;
+}
+
+/* each column */
+.column h4 {
+    font-size: var(--heading-size);
+    font-weight: 400;
+    margin-bottom: 14px;
+    color: #ffffff;
+}
+
+.column p {
+    font-size: var(--text-size);
+    margin: 10px 0;
+    color: var(--muted-white);
+    cursor: default;
+    transition: color 0.18s ease;
+}
+
+/* subtle hover like Figma */
+.column p:hover {
+    color: #ae6eae;
+}
+
+/* bottom divider similar to figma (over footer area) */
+.bottomDivider {
+    width: 100%;
+    height: 1px;
+    background: var(--divider);
+    margin: 34px 0 18px;
+}
+
+/* copyright centered */
+.copyRight {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted-white-2);
+    margin-bottom: 6px;
+}
+
+/* -------------------- Responsive -------------------- */
+
+/* Tablet: switch to 3-column grid */
+@media (max-width: 1024px) {
+    .columns {
+        display: grid;
+        /* override desktop flex */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 24px;
+        padding: 0;
+        text-align: left;
+    }
+
+    .footer {
+        padding: 56px 28px 48px;
+    }
+
+    .logoWrap {
+        top: -36px;
+        width: 78px;
+        height: 78px;
+    }
+
+    .logo {
+        width: 48px;
+        height: 48px;
+    }
+
+    .column2 {
+        margin-right: 0;
+        /* remove desktop nudge on smaller screens */
+    }
+}
+
+/* Mobile: 2 columns per row (2 x 3 for 6 blocks) */
+@media (max-width: 600px) {
+    .topWhiteBar {
+        height: 12px;
+    }
+
+    /* reduce extra space above & below brand on mobile */
+    .footer {
+        padding: 50px 20px 30px;
+        /* tighter top/bottom */
+    }
+
+    .logoWrap {
+        top: -28px;
+        /* closer to the white bar */
+        width: 68px;
+        height: 68px;
+    }
+
+    .columns {
+        display: grid;
+        /* override desktop flex */
+        grid-template-columns: repeat(2, 1fr);
+        /* two-per-row */
+        gap: 20px 16px;
+        /* row gap / column gap */
+        padding: 0;
+        text-align: left;
+        align-items: start;
+    }
+
+    /* compact the blocks so they don't push each other down */
+    .column,
+    .column2 {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        min-width: 0;
+        /* allows ellipsis to work */
+    }
+
+    .column h4,
+    .column2 h4 {
+        font-size: 15px;
+        line-height: 1.2;
+        margin-bottom: 8px;
+    }
+
+    .column p,
+    .column2 p {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 6px 0;
+    }
+
+    /* Force single line for Learn items only; truncate if needed */
+    .column2 p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* tighten brand spacing */
+    .brand {
+        font-size: 16px;
+        margin-top: 8px;
+        /* less space above brand */
+        margin-bottom: 8px;
+        /* less space before divider */
+    }
+
+    .topDivider {
+        margin: 18px 0;
+        /* reduced spacing under brand */
+    }
+
+    .bottomDivider {
+        margin: 22px 0 10px;
+    }
+
+    .column2 {
+        margin-right: 0;
+        /* neutralize desktop-only tweak */
+    }
+
+    .copyRight {
+        font-size: 12px;
+    }
+}
+
+/* small visual polish */
+.footer,
+.footer * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

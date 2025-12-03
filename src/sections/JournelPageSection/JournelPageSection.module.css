@@ -1,0 +1,124 @@
+.section {
+    padding: 20px 0 70px;
+    background: var(--Background_Color);
+    color: var(--Black_Color);
+    font-family: var(--Font_Family);
+}
+
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Pills */
+.badgeLeft {
+    display: flex;
+    justify-content: flex-start;
+    margin: 8px 0 14px;
+}
+
+.badgeCenter {
+    display: flex;
+    justify-content: center;
+    margin: 34px 0 18px;
+}
+
+/* ---------- Carousel viewport ---------- */
+.viewport {
+    position: relative;
+    margin: 0 auto 22px;
+
+    /* arrows stay fixed: choose where you want them vertically */
+    --navY: 140px;
+    /* tweak if you want arrows higher/lower */
+    padding-top: 12px;
+    /* ensures space so arrows never overlap header */
+}
+
+/* fixed arrows relative to viewport, not content height */
+.nav {
+    position: absolute;
+    top: var(--navY);
+    /* <- fixed! does not change with content */
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: none;
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--White_Color);
+    font-weight: 600;
+    font-size: 1.245rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.left {
+    left: -26px;
+}
+
+.right {
+    right: -26px;
+}
+
+.nav:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Grid shows 3/2/1 cards */
+.grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .left {
+        left: -10px;
+    }
+
+    .right {
+        right: -10px;
+    }
+
+    .viewport {
+        --navY: 130px;
+    }
+
+    /* small adjustment for tablet */
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 0 16px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .left {
+        left: 4px;
+    }
+
+    .right {
+        right: 4px;
+    }
+
+    .viewport {
+        --navY: 120px;
+    }
+
+    /* mobile arrow position */
+}

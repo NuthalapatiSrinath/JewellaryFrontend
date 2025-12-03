@@ -1,0 +1,313 @@
+/* SpotlightSection.module.css */
+
+/* Section */
+.section {
+    padding: 10px 90px;
+    font-family: var(--Font_Family);
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Heading wrap (left aligned) */
+.headingWrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+/* Subtext */
+.subtext {
+    margin: 0 0 18px 0;
+    font-family: var(--Font_Family);
+    font-size: var(--Font_Size_6);
+    line-height: 1.6;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+/* --- NEW: viewport to anchor absolute arrows like ShopByShape --- */
+.viewport {
+    position: relative;
+    /* anchor for absolute .nav buttons */
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+/* Scroller setup (horizontal scrolling of 3 cards) */
+.scroller {
+    display: flex;
+    gap: 16px;
+    overflow: hidden;
+    /* Hide the scrollbar */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.scroller::-webkit-scrollbar {
+    display: none;
+}
+
+/* Items inside the scroller */
+.scrollerInner {
+    display: flex;
+    gap: 16px;
+    transition: transform 1s ease-in-out;
+}
+
+/* Each scroller item takes up 1/3 of the space */
+.scrollerItem {
+    flex: 0 0 calc(33.333% - 16px);
+    /* 3 cards visible */
+}
+
+/* ------------------ ShopByShape-like arrows ------------------ */
+.nav {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    border: none;
+    scale: 1.1;
+
+    background: rgba(0, 0, 0, 0.2);
+    color: var(--White_Color, #fff);
+
+    font-weight: 600;
+    font-size: 1.245rem;
+    line-height: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    z-index: 2;
+}
+
+.left {
+    left: -26px;
+}
+
+.right {
+    right: -26px;
+}
+
+.nav:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* Disabled state (at ends) */
+.nav:disabled {
+    opacity: .4;
+    cursor: default;
+    box-shadow: none;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+/* Bottom link */
+.linkWrap {
+    margin-top: 18px;
+    text-align: right;
+}
+
+.link {
+    display: inline-block;
+    margin-top: 24px;
+    font-family: var(--Font_Family);
+    font-weight: 400;
+    font-size: var(--Font_Size_5);
+    color: var(--Info_Color);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+/* ------------------ Responsiveness ------------------ */
+/* 2 cards on medium screens */
+@media (max-width: 1000px) {
+    .scrollerItem {
+        flex: 0 0 calc(50% - 16px);
+    }
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+    .scrollerItem {
+        flex: 0 0 100%;
+    }
+
+    /* 1 card visible */
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .subtext {
+        font-size: 18px;
+    }
+
+    /* Bring arrows inside and make slightly smaller on mobile */
+    .nav {
+        width: 38px;
+        height: 38px;
+        font-size: 1.1rem;
+        background: rgba(0, 0, 0, 0.25);
+    }
+
+    .left {
+        left: 6px;
+    }
+
+    .right {
+        right: 6px;
+    }
+}/* mobile: refined layout + arrows inside, one card visible, tighter spacing */
+@media (max-width: 600px) {
+
+    /* overall breathing + safe-area */
+    .section {
+        padding: 12px max(12px, env(safe-area-inset-left)) 16px max(12px, env(safe-area-inset-right));
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .headingWrap {
+        margin-bottom: 4px;
+    }
+
+    .subtext {
+        font-size: 16px;
+        /* slightly smaller for narrow phones */
+        line-height: 1.5;
+        margin: 0 0 12px 0;
+    }
+
+    /* viewport anchors the absolute arrows; add side padding so arrows don't overlap card */
+    .viewport {
+        position: relative;
+        padding: 0 36px;
+        /* space for arrows inside */
+    }
+
+    /* 1 card per view; enable smooth swipe + tighter gaps */
+    .scroller {
+        gap: 12px;
+        overflow-x: auto;
+        /* allow swipe/drag */
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        /* snap to each card */
+    }
+
+    .scroller::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollerInner {
+        gap: 12px;
+    }
+
+    /* a single card fills viewport nicely and snaps */
+    .scrollerItem {
+        flex: 0 0 100%;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    /* ShopByShape-style arrows sized for thumb reach, moved inside */
+    .nav {
+        width: 38px;
+        height: 38px;
+        font-size: 1.05rem;
+        background: rgba(0, 0, 0, 0.28);
+        backdrop-filter: blur(2px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+    }
+
+    .left {
+        left: 6px;
+    }
+
+    .right {
+        right: 6px;
+    }
+
+    .nav:active {
+        transform: scale(0.96);
+    }
+}
+/* Mobile: show only first 3 cards stacked vertically, no arrows */
+@media (max-width: 600px) {
+
+    /* General section spacing */
+    .section {
+        padding: 16px 16px 24px 16px;
+    }
+
+    .container {
+        padding: 0 12px;
+    }
+
+    .headingWrap {
+        margin-bottom: 6px;
+    }
+
+    .subtext {
+        font-size: 16px;
+        line-height: 1.5;
+        margin: 0 0 14px 0;
+    }
+
+    /* Disable horizontal scroll, stack vertically */
+    .viewport {
+        position: relative;
+        padding: 0;
+    }
+
+    .scroller {
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+        /* no horizontal scroll */
+        gap: 16px;
+    }
+
+    .scrollerInner {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    /* Show only first 3 cards */
+    .scrollerItem {
+        flex: 1 1 100%;
+    }
+
+    .scrollerItem:nth-child(n + 4) {
+        display: none;
+    }
+
+    /* Hide navigation arrows */
+    .nav {
+        display: none !important;
+    }
+
+    .linkWrap {
+        text-align: center;
+        margin-top: 24px;
+    }
+
+    .link {
+        font-size: 16px;
+    }
+}

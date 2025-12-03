@@ -1,0 +1,156 @@
+:root {
+    --gap: 20px;
+    --label-padding: 18px;
+    --title-color: rgba(0, 0, 0, .85);
+}
+
+/* Section */
+.section {
+    background: #faf6ef;
+    padding: 28px 12px;
+    text-align: center;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 18px;
+    color: var(--title-color);
+}
+
+/* Grid: 2 columns (50% each) on desktop, stack on small screens */
+.grid {
+    --gap: clamp(12px, 2vw, 24px);
+    display: flex;
+    gap: var(--gap);
+   
+    margin: 0 auto;
+    align-items: stretch;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0 8px;
+}
+
+/* Each card occupies 50% of the grid width and grows/shrinks equally */
+.card {
+    position: relative;
+    flex: 1 1 50%;
+    min-width: 0;
+    /* prevents overflow when text is long */
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    background: #000;
+}
+
+/* Image fills the card */
+.img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s ease;
+    will-change: transform;
+}
+
+.card:hover .img {
+    transform: scale(1.29);
+}
+
+/* Soft gradient bottom so label is readable */
+.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 36%;
+    background: linear-gradient(to top, rgba(0, 0, 0, .44), rgba(0, 0, 0, 0));
+    pointer-events: none;
+}
+/* Label (bottom-left) */
+.label {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: var(--label-padding);
+    width: 100%;
+    box-sizing: border-box;
+
+    /* center the inline-flex children so name + arrow are next to each other */
+    justify-content: center;
+    /* <- changed */
+}
+
+/* label text should not grow (so arrow stays directly beside it) */
+.labelText {
+    color: #fff;
+    font-weight: 500;
+    text-transform: uppercase;
+   
+    font-size: 32px;
+    line-height: 1;
+    text-shadow: 0 6px 18px rgba(0, 0, 0, .22);
+    flex: 0 0 auto;
+    /* <- changed (was flex: 1 1 auto) */
+    text-align: center;
+}
+
+/* keep arrow size but align it visually with text */
+.arrow {
+    color: #fff;
+    font-size: 36px;
+    opacity: 0.95;
+    /* slight left margin to breathe from the label if needed */
+    margin-left: 6px;
+}
+/* Responsive: stack to single column on narrow screens */
+@media (max-width: 720px) {
+    .grid {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .card {
+        flex: 1 1 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+    }
+
+    .labelText {
+        font-size: 1rem;
+    }
+
+    .arrow {
+        font-size: 18px;
+    }
+}
+
+/* Very small screens - tighten paddings and label sizes */
+@media (max-width: 420px) {
+    .section {
+        padding: 18px 10px;
+    }
+
+    .title {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .label {
+        padding: 12px;
+    }
+
+    .labelText {
+        font-size: 0.95rem;
+    }
+}

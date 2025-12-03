@@ -1,0 +1,396 @@
+:root {
+    /* responsive baseline (desktop-friendly) */
+    --card-size: clamp(160px, 22vw, 320px);
+    --shift-1: calc(var(--card-size) * 0.72);
+    --shift-2: calc(var(--card-size) * 1.42);
+    --drop-1: 6px;
+    --drop-2: 14px;
+    --angle-1: 9deg;
+    --angle-2: 16deg;
+    --shadow-soft: 0 14px 26px rgba(0, 0, 0, .14);
+    --shadow-hard: 0 20px 34px rgba(0, 0, 0, .20);
+}
+
+/* ---------------------- page safety ---------------------- */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+    /* prevent horizontal page scroll */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+/* ---------- Shell ---------- */
+.section {
+    padding: 0.5rem;
+    color: var(--Black_Color);
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding: 1.75rem;
+}
+
+/* ---------- Stage & Deck ---------- */
+.stage {
+    position: relative;
+    /* positioning context for navs */
+    max-width: 1200px;
+    margin: 0 auto;
+    perspective: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* allow transforms to show but page will not scroll because html/body hides overflow-x */
+    overflow: visible;
+}
+
+.deck {
+    position: relative;
+    height: calc(var(--card-size) + 36px);
+    width: 100%;
+    display: block;
+    pointer-events: none;
+    /* cards are purely visual; navs handle input */
+}
+
+/* ---------- Card ---------- */
+.card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--card-size);
+    height: var(--card-size);
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--White_Color);
+    box-shadow: var(--shadow-soft);
+    transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s cubic-bezier(.2, .7, .2, 1), opacity .35s;
+    will-change: transform, opacity;
+    pointer-events: auto;
+    /* allow focus if needed */
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: filter .35s ease;
+    user-select: none;
+}
+
+/* ---------- Layers & transforms ---------- */
+.s0 {
+    z-index: 6;
+    transform: translate(-50%, calc(-50% - 6px)) scale(1.12) rotate(0);
+    box-shadow: var(--shadow-hard);
+}
+
+.s1 {
+    z-index: 5;
+    transform: translate(calc(-50% + var(--shift-1)), calc(-50% + var(--drop-1))) rotate(var(--angle-1));
+    opacity: .98;
+}
+
+.s2 {
+    z-index: 4;
+    transform: translate(calc(-50% + var(--shift-2)), calc(-50% + var(--drop-2))) rotate(var(--angle-2));
+    opacity: .85;
+}
+
+.s_1 {
+    z-index: 5;
+    transform: translate(calc(-50% - var(--shift-1)), calc(-50% + var(--drop-1))) rotate(calc(-1 * var(--angle-1)));
+    opacity: .98;
+}
+
+.s_2 {
+    z-index: 4;
+    transform: translate(calc(-50% - var(--shift-2)), calc(-50% + var(--drop-2))) rotate(calc(-1 * var(--angle-2)));
+    opacity: .85;
+}
+
+/* color / filters */
+.s0 img {
+    filter: saturate(1.08) contrast(1.05) brightness(1.02);
+}
+
+.s1 img,
+.s_1 img {
+    filter: saturate(.94) contrast(.97) brightness(.99);
+}
+
+.s2 img,
+.s_2 img {
+    filter: saturate(.86) contrast(.92) brightness(.97);
+}
+
+/* ---------- Nav buttons (always visible & clickable) ---------- */
+/* Use clamp to keep them inside viewport edges while letting them sit near the cards */
+.nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .22);
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 9999;
+    /* topmost to avoid being covered */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+    transition: background .18s ease, transform .12s ease;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    pointer-events: auto;
+}
+
+/* subtle press effect */
+.nav:active {
+    transform: translateY(-50%) scale(.98);
+}
+
+.nav:hover {
+    background: rgba(0, 0, 0, .28);
+}
+
+.nav:disabled {
+    opacity: .40;
+    cursor: default;
+    pointer-events: none;
+}
+
+/* Position left & right using clamp so they never go unreachable.
+   Preferred value uses space around the centered deck: ((100vw - card-size)/2 - offset)
+   clamp() ensures a minimum (8px) and maximum (100px) so arrows stay visible on tiny and huge screens. */
+.left {
+    left: clamp(8px, calc((100vw - var(--card-size)) / 2 - 64px), 96px);
+}
+
+.right {
+    right: clamp(8px, calc((100vw - var(--card-size)) / 2 - 64px), 96px);
+}
+
+/* Ensure navs are reachable on touch devices (bigger hit) */
+@media (hover: none) and (pointer: coarse) {
+    .nav {
+        width: 60px;
+        height: 60px;
+        font-size: 1.25rem;
+    }
+
+    .left {
+        left: clamp(8px, calc((100vw - var(--card-size)) / 2 - 78px), 96px);
+    }
+
+    .right {
+        right: clamp(8px, calc((100vw - var(--card-size)) / 2 - 78px), 96px);
+    }
+}
+
+/* ---------- CTA ---------- */
+.ctaWrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 14px;
+    padding: 1rem;
+}
+
+.cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+/* ---------- Responsiveness: tune card scales & nav sizes ---------- */
+
+/* Extra small phones */
+@media (max-width: 360px) {
+    :root {
+        --card-size: clamp(120px, 62vw, 180px);
+        --shift-1: calc(var(--card-size) * 0.45);
+        --shift-2: calc(var(--card-size) * 0.85);
+    }
+
+    .deck {
+        height: calc(var(--card-size) + 20px);
+    }
+
+    .nav {
+        width: 42px;
+        height: 42px;
+        font-size: 1.05rem;
+    }
+
+    .left {
+        left: 8px;
+    }
+
+    /* force fully inside */
+    .right {
+        right: 8px;
+    }
+
+    .s2,
+    .s_2 {
+        display: none;
+    }
+
+    /* hide far cards for tiny screens */
+    .cta {
+        font-size: 14px;
+    }
+}
+
+/* phones */
+@media (min-width:361px) and (max-width:480px) {
+    :root {
+        --card-size: clamp(140px, 54vw, 200px);
+        --shift-1: calc(var(--card-size) * 0.5);
+        --shift-2: calc(var(--card-size) * 0.95);
+    }
+
+    .nav {
+        width: 46px;
+        height: 46px;
+        font-size: 1.1rem;
+    }
+
+    .left {
+        left: clamp(10px, calc((100vw - var(--card-size))/2 - 56px), 40px);
+    }
+
+    .right {
+        right: clamp(10px, calc((100vw - var(--card-size))/2 - 56px), 40px);
+    }
+
+    .deck {
+        height: calc(var(--card-size) + 20px);
+    }
+}
+
+/* small tablets */
+@media (min-width:481px) and (max-width:768px) {
+    :root {
+        --card-size: clamp(180px, 40vw, 260px);
+        --shift-1: calc(var(--card-size) * 0.6);
+        --shift-2: calc(var(--card-size) * 1.05);
+    }
+
+    .nav {
+        width: 50px;
+        height: 50px;
+        font-size: 1.35rem;
+    }
+
+    .left {
+        left: clamp(8px, calc((100vw - var(--card-size))/2 - 72px), 56px);
+    }
+
+    .right {
+        right: clamp(8px, calc((100vw - var(--card-size))/2 - 72px), 56px);
+    }
+
+    .deck {
+        height: calc(var(--card-size) + 28px);
+    }
+}
+
+/* larger tablets & small laptops */
+@media (min-width:769px) and (max-width:1024px) {
+    :root {
+        --card-size: clamp(200px, 30vw, 300px);
+        --shift-1: calc(var(--card-size) * 0.65);
+        --shift-2: calc(var(--card-size) * 1.25);
+    }
+
+    .nav {
+        width: 52px;
+        height: 52px;
+        font-size: 1.45rem;
+    }
+
+    .left {
+        left: clamp(12px, calc((100vw - var(--card-size))/2 - 86px), 82px);
+    }
+
+    .right {
+        right: clamp(12px, calc((100vw - var(--card-size))/2 - 86px), 82px);
+    }
+
+    .deck {
+        height: calc(var(--card-size) + 34px);
+    }
+}
+
+/* desktops & wide */
+@media (min-width:1025px) {
+    :root {
+        --card-size: clamp(220px, 22vw, 340px);
+        --shift-1: calc(var(--card-size) * 0.72);
+        --shift-2: calc(var(--card-size) * 1.42);
+    }
+
+    .nav {
+        width: 48px;
+        height: 48px;
+        font-size: 1.6rem;
+    }
+
+    /* keep arrows visually outside card area but still within viewport by clamp max */
+    .left {
+        left: clamp(24px, calc((100vw - var(--card-size))/2 - 96px), 110px);
+    }
+
+    .right {
+        right: clamp(24px, calc((100vw - var(--card-size))/2 - 96px), 110px);
+    }
+
+    .deck {
+        height: calc(var(--card-size) + 36px);
+    }
+}
+
+/* ---------- Safety: images & figures ---------- */
+img,
+figure {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ---------- Ensure nav is above everything (avoid sticky header overlap) ---------- */
+.nav {
+    position: absolute;
+    z-index: 9999;
+}
+
+/* ---------- Small accessibility hint for keyboard users ---------- */
+.nav:focus {
+    outline: 3px solid rgba(255, 255, 255, 0.18);
+    outline-offset: 2px;
+}

@@ -1,0 +1,188 @@
+.page {
+    font-family: "Inter", sans-serif;
+    color: #222;
+    padding:1rem;
+    
+    
+}
+
+.header {
+    text-align: center;
+    padding: 25px 0 28px;
+    background: #fafafa;
+}
+
+.breadcrumb {
+    font-size: 13px;
+    color: #666;
+    padding:1rem;
+    margin-bottom: 8px;
+}
+.belowPage{
+    padding : 3rem ;
+    
+}
+.title {
+    font-family: "Playfair Display", serif;
+    font-size: 32px;
+    margin: 0 0 6px;
+}
+
+.lead {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #666;
+    line-height: 1.6;
+}
+.belowpage{
+   
+    padding:1rem;
+}
+
+/* Filters */
+.filtersSection {
+    
+    padding: 18px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.topRow {
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+}
+
+.filtersGrid {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 12px;
+}
+
+.col {
+    flex: 1;
+    min-width: 240px;
+}
+
+.block {
+    margin-bottom: 18px;
+}
+
+.blockTitle {
+    font-size: 13px;
+    letter-spacing: 1px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.shapeGrid {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.shapeBtn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px;
+    width: 80px;
+}
+
+.shapeActive {
+    outline: 2px solid #f3b8b0;
+    border-radius: 6px;
+}
+
+.shapeImg {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    margin-bottom: 6px;
+}
+
+.shapeLabel {
+    font-size: 12px;
+    color: #666;
+    text-transform: capitalize;
+}
+
+.rowBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.pill {
+    background: #f2f2f2;
+    padding: 4px 8px;
+    border-radius: 12px;
+    margin-left: 6px;
+}
+
+.bottomControls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 8px;
+    border-top: 1px solid #f3f3f3;
+    margin-top: 12px;
+}
+
+.fastShipping {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #444;
+}
+
+.controlsRight {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.resetBtn {
+    background: transparent;
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.resultsHeader {
+    padding: 18px 0;
+}
+
+.resultsCount {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Table section */
+.tableSection {
+    margin-top: 8px;
+}
+
+/* helper */
+.upper {
+    text-transform: uppercase;
+    font-size: 12px;
+    color: #555;
+}
+
+/* Responsive: stack filters on smaller screens */
+@media (max-width: 1000px) {
+    .filtersGrid {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .col {
+        min-width: auto;
+    }
+}

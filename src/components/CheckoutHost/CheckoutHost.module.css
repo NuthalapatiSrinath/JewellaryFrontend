@@ -1,0 +1,152 @@
+:root {
+    --step-active: var(--Primary_Color);
+    --step-muted: #9b9b9b;
+}
+
+/* layout */
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.headerWrap {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    padding: 6px;
+
+}
+
+.header {
+    display: flex;
+    align-items: center;
+
+    flex-wrap: nowrap;
+    max-width: 920px;
+}
+/* stepper items */
+.stepWrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.stepItem {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    padding: 4px 6px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--step-muted);
+    line-height: 1;
+    border-radius: 6px;
+    transition: color 0.2s ease, font-weight 0.2s ease;
+}
+
+.stepItem:focus-visible {
+    outline: 2px solid var(--step-active);
+    outline-offset: 2px;
+}
+
+.stepLabel {
+    font-size: var(--Font_Size_5);
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Active + Completed */
+.activeStep .stepLabel {
+    color: var(--step-active);
+    font-weight: 600;
+}
+
+.completedStep .stepLabel {
+    color: var(--step-active);
+    font-weight: 600;
+}
+
+/* Divider arrows */
+.divider {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    transform: translateY(1px);
+    color: var(--step-muted);
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.divider::before {
+    content: ">>";
+    font-family: var(--Font_Family, "Montserrat", sans-serif);
+    opacity: 0.6;
+}
+
+/* 🔹 Active / Completed dividers: highlight forward path */
+.activeDivider,
+.completedDivider {
+    color: var(--step-active);
+}
+
+.activeDivider::before,
+.completedDivider::before {
+    color: var(--step-active);
+    opacity: 1;
+}
+
+/* Content below stepper */
+.body {
+    width: 100%;
+}
+
+/* --------- MEDIA QUERIES --------- */
+@media (max-width: 480px) {
+    .header {
+        gap: 8px;
+        max-width: 100%;
+        overflow-x: auto;
+        padding: 0 8px;
+    }
+
+    .stepLabel {
+        font-size: 15px;
+    }
+
+    .divider {
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 640px) {
+    .stepLabel {
+        font-size: 16px;
+    }
+
+    .divider {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+    .stepLabel {
+        font-size: 17px;
+    }
+
+    .divider {
+        font-size: 15px;
+    }
+}
+
+@media (min-width: 1025px) {
+    .stepLabel {
+        font-size: 18px;
+    }
+
+    .divider {
+        font-size: 16px;
+    }
+}

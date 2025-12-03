@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --primary: var(--Primary_Color, #993399);
+    --pink-bg: #f5ebf5;
+    --white: #ffffff;
+    --muted: rgba(0, 0, 0, 0.7);
+    --card-radius: 14px;
+    --shadow: 0 12px 30px rgba(17, 12, 38, 0.06);
+    --connector-gray: #dcdcdc;
+    --connector-height: 6px;
+    --icon-size: 46px;
+    --font: var(--Font_Family, "Montserrat", sans-serif);
+}
+
+/* Outer container card */
+.hostCard {
+    width: 100%;
+    border-radius: var(--card-radius);
+    padding: 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.4s ease;
+}
+
+/* Steps row */
+ .stepRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 1180px;
+} 
+
+/* Each step wrapper */
+.stepItemWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 0;
+    position: relative;
+}
+
+/* Circle button */
+.stepButton {
+    width: var(--icon-size);
+    height: var(--icon-size);
+    border-radius: 50%;
+    background: var(--white);
+    border: none;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 18px rgba(17, 12, 38, 0.06);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 3;
+}
+
+/* Inner icon */
+.iconWrap {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.iconInner {
+    font-size: 18px;
+    color: var(--muted);
+}
+
+.iconInnerPlaceholder {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+/* Completed check badge */
+.checkBadge {
+    position: absolute;
+    left: -7px;
+    top: -7px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2ecc71;
+    color: white;
+    font-size: 11px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Connectors */
+.connectorWrap {
+    flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    height: var(--connector-height);
+    margin: 0 10px;
+    width: 100%;
+}
+
+.connectorTrack {
+    width: 100%;
+    height: var(--connector-height);
+    background: var(--connector-gray);
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+}
+
+.connectorTrack::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary), rgba(153, 51, 153, 0.85));
+    transition: width 400ms cubic-bezier(.2, .9, .4, 1);
+}
+
+.connectorFilled::after {
+    width: 100%;
+}
+
+/* Active step */
+.stepActive .stepButton {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(153, 51, 153, 0.12);
+}
+
+.stepComplete .stepButton {
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+}
+
+/* Label */
+.stepLabel {
+    margin-top: 10px;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* Disabled */
+.stepDisabled {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    :root {
+        --icon-size: 40px;
+        --connector-height: 5px;
+    }
+
+    .stepLabel {
+        font-size: 13px;
+    }
+}

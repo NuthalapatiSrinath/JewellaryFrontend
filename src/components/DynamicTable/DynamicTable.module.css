@@ -1,0 +1,51 @@
+.Dynamic {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--Font_Size_3);
+    color: var(--White_Color);
+  
+    background-color: transparent;
+    /* Let the wrapper handle background */
+}
+.tableWrapper {
+    background-color: rgba(from var(--White_Color) r g b / 3.5%);
+    /* ~3.5% */
+    border-radius: 12px;
+    
+    min-height: 220px;
+    height:100%;
+    padding: 1rem;
+}
+
+/* Header row styling */
+.Dynamic thead td {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    /* White with 70% opacity */
+    padding: 0.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    /* bottom line ONLY for header */
+    
+}
+
+/* Body rows */
+.Dynamic tbody tr {
+    background-color: transparent;
+}
+
+.Dynamic tbody td {
+    padding: 1rem;
+    color: var(--White_Color);
+    background-color: transparent;
+    border-bottom: none;
+    /* remove bottom border if any */
+}
+
+.Dynamic tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Optional checkbox or padding reset */
+.Dynamic td:first-child {
+    padding-left: 0.75rem;
+}

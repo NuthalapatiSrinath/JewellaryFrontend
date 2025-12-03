@@ -1,0 +1,64 @@
+:root {
+    /* optional default fallback; better if this is written at runtime by Topbar */
+    --topbar-height: 150px;
+    /* you may remove or keep this as a fallback; Topbar should overwrite it dynamically */
+}
+
+/* outer layout */
+.DashboardLayout {
+    position: relative;
+    display: flex;
+    width: 100%;
+}
+
+/* optional left area */
+.LeftSection {
+    position: relative;
+    width: max-content;
+}
+
+/* right column contains topbar + content */
+.RightSection {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* The fixed wrapper — this is what is fixed to top of viewport */
+.TopbarFixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--topbar-height);
+    z-index: 1200;
+    background: #fcfbff;
+    /* match your topbar background */
+    transition: box-shadow 220ms ease, background-color 220ms ease;
+    display: flex;
+    align-items: stretch;
+    /* keep subtle border if you want */
+    -webkit-backdrop-filter: saturate(120%) blur(2px);
+    backdrop-filter: saturate(120%) blur(2px);
+}
+
+/* add shadow on scroll */
+.TopbarScrolled {
+    box-shadow: 0 6px 20px rgba(11, 12, 17, 0.06);
+}
+
+/* main content MUST be offset by the topbar height */
+.Main {
+    padding-top: var(--topbar-height);
+    box-sizing: border-box;
+    min-height: calc(100vh - var(--topbar-height));
+    width: 100%;
+}
+
+/* adjust on small screens if topbar reduces height */
+@media (max-width: 720px) {
+    :root {
+        --topbar-height: 72px;
+    }
+}

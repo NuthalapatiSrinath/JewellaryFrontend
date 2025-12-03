@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --primary: var(--Primary_Color, #993399);
+    --pink: #f5ebf5;
+    /* inner active bg */
+    --outer-bg: var(--White_Color, #ffffff);
+    --outer-shadow: 0 8px 24px rgba(17, 12, 38, 0.06);
+    --inner-shadow: 0 2px 10px rgba(153, 51, 153, 0.06);
+    --font: var(--Font_Family, 'Montserrat', sans-serif);
+    --tab-height: 38px;
+    /* explicit tab button height */
+    --tab-font-size: 14px;
+}
+
+/* outer container: small white pill */
+.TabSelector {
+    display: inline-block;
+    position: relative;
+    background: var(--outer-bg);
+    padding: 4px;
+    /* breathing room between outer and inner pills */
+    border-radius: 999px;
+    height: calc(var(--tab-height) + 8px);
+    /* ensures container tall enough for indicator */
+    box-shadow: var(--outer-shadow);
+    font-family: var(--font);
+    width: max-content;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* sliding indicator: its top/height are set from JS to match tab */
+.indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--pink);
+    z-index: 0;
+    box-shadow: var(--inner-shadow);
+    transition: transform 220ms cubic-bezier(.2, .9, .4, 1), width 220ms cubic-bezier(.2, .9, .4, 1), left 220ms cubic-bezier(.2, .9, .4, 1), top 220ms cubic-bezier(.2, .9, .4, 1), height 220ms cubic-bezier(.2, .9, .4, 1);
+    pointer-events: none;
+}
+
+/* tab row (keeps layout predictable) */
+.TabOptionsContainer {
+    position: relative;
+    display: flex;
+    gap: 6px;
+    z-index: 1;
+    /* above indicator */
+    align-items: center;
+}
+
+/* each tab button */
+.TabOption {
+    border: none;
+    background: transparent;
+    padding: 0 12px;
+    height: var(--tab-height);
+    min-width: 88px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: var(--tab-font-size);
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: color 150ms ease, transform 120ms ease;
+}
+
+/* active text style */
+.active {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* focus ring */
+.TabOption:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(153, 51, 153, 0.06);
+    border-radius: 999px;
+}
+
+/* responsive small tweak */
+@media (max-width: 520px) {
+    :root {
+        --tab-height: 26px;
+        --tab-font-size: 13px;
+    }
+
+    .TabOption {
+        padding: 0 10px;
+        min-width: 64px;
+    }
+}

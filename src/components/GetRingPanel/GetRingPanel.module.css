@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --brand-purple: #a54ea8;
+    --muted-gray: #8a8a8a;
+    --panel-font: "Montserrat", sans-serif;
+}
+
+.container {
+    font-family: var(--panel-font);
+    color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0;
+}
+
+/* Neutral ships-by row */
+.neutralRow {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.neutralIcon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    flex: 0 0 44px;
+}
+
+.neutralIcon svg * {
+    stroke: #9b9b9b;
+    fill: none;
+}
+
+.neutralContent {}
+
+.neutralTitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.78);
+}
+
+/* heading above the list */
+.featuresHeading {
+    font-size: 15px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.7);
+    margin-top: 2px;
+    margin-bottom: 6px;
+}
+
+/* features list */
+.featuresList {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* each feature row */
+.featureItem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    transition: transform 160ms ease;
+}
+
+/* icon circle for the colorful rows */
+.featureIcon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    background: rgba(165, 78, 168, 0.04);
+    /* faint purple backing */
+    box-shadow: 0 8px 24px rgba(165, 78, 168, 0.04);
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+/* svg strokes/fill controlled by CSS variables for maintainability */
+.featureIcon svg * {
+    stroke: var(--brand-purple);
+    fill: rgba(165, 78, 168, 0.08);
+    transition: stroke 140ms ease, fill 140ms ease, opacity 120ms ease;
+}
+
+.featureContent {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.featureTitle {
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--brand-purple);
+}
+
+.featureDesc {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.35;
+    margin: 0;
+}
+
+/* hover effect for colorful rows */
+.featureItem:hover .featureIcon,
+.featureItem:focus-within .featureIcon {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 34px rgba(165, 78, 168, 0.06);
+}
+
+/* responsive */
+@media (max-width: 640px) {
+    .neutralIcon {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+    }
+
+    .featureIcon {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+    }
+
+    .featureTitle {
+        font-size: 14px;
+    }
+
+    .featureDesc {
+        font-size: 13px;
+    }
+}

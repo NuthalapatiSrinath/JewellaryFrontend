@@ -1,0 +1,42 @@
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    outline: none;
+    font-family: var(--Font_Family);
+}
+
+.button:hover {
+    background: var(--hover-bg);
+    color: var(--hover-color);
+    
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.button:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.left {
+    margin-right: 6px;
+}
+
+.right {
+    margin-left: 6px;
+}
+
+.label {
+    white-space: nowrap;
+}

@@ -1,0 +1,295 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+    --primary: var(--Primary_Color, #993399);
+    --bg: var(--Background_Color, #fcfbff);
+    --card-bg: var(--Utility_Color1, #f5ebf5);
+    --muted: rgba(0, 0, 0, 0.55);
+    --radius: 12px;
+    --shadow-lg: 0 12px 30px rgba(17, 12, 38, 0.06);
+    --shadow-sm: 0 6px 18px rgba(17, 12, 38, 0.04);
+    --font: var(--Font_Family, 'Montserrat', sans-serif);
+
+    /* hero tuning */
+    --hero-height-desktop: 340px;
+    --hero-height-tablet: 240px;
+    --hero-height-mobile: 180px;
+}
+
+.upsidePage {
+    padding: 1.5rem 1.5rem 0;
+}
+
+/* page wrapper */
+.page {
+
+    background: var(--bg);
+    font-family: var(--font);
+    color: rgba(0, 0, 0, 0.88);
+}
+
+/* -------- HERO -------- */
+.hero {
+    width: 100%;
+
+    /* center max width like your layout */
+    margin: 0 auto 28px;
+    position: relative;
+
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+/* hero image */
+.heroImg {
+    width: 100%;
+    height: var(--hero-height-desktop);
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+/* soft overlay to aid text contrast */
+.heroOverlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.1) 55%, rgba(0, 0, 0, 0.02) 100%);
+    pointer-events: none;
+}
+
+/* text box on the right */
+.heroText {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 420px;
+    text-align: right;
+    z-index: 4;
+    color: #ffffff;
+    padding: 6px 12px;
+}
+
+.heroTitle {
+    margin: 0 0 6px;
+    font-size: 28px;
+    line-height: 1.05;
+    letter-spacing: 0.2px;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.heroSubtitle {
+    margin: 0;
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.95);
+    opacity: 0.95;
+}
+
+/* small tabs top-left */
+.topTabs {
+    margin-bottom: 18px;
+}
+
+/* filters row */
+.filtersRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 18px 0;
+    flex-wrap: wrap;
+}
+
+.filterLeft {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filterRight {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* subtle secondary button */
+.secondaryBtn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* content area */
+.contentArea {
+    display: block;
+    margin-top: 12px;
+}
+
+/* small helper to visually separate panels */
+.panelWrapper {
+    background: var(--White_Color, #fff);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    padding: 12px;
+}
+
+/* mainGrid used if you render the gallery + details directly */
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 28px;
+    align-items: start;
+}
+
+/* gallery grid */
+.gallery .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.gridItem {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    min-height: 160px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* thumb image */
+.thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* tap badge on top of first image */
+.tapBadge {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* right column - product details card */
+.details {
+    background: var(--White_Color, #fff);
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow-lg);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* responsive tweaks */
+@media (max-width: 1180px) {
+    .mainGrid {
+        grid-template-columns: 1fr 360px;
+    }
+}
+
+/* tablet / small desktop */
+@media (max-width: 980px) {
+    .mainGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .details {
+        order: 2;
+    }
+
+    .gallery {
+        order: 1;
+    }
+
+    .filtersRow {
+        gap: 8px;
+    }
+
+    /* shrink hero height and move text a bit left */
+    .heroImg {
+        height: var(--hero-height-tablet);
+    }
+
+    .heroText {
+        right: 4%;
+        max-width: 380px;
+    }
+}
+
+/* mobile */
+@media (max-width: 600px) {
+    .page {
+        padding: 14px;
+    }
+
+    .hero {
+        margin-bottom: 18px;
+        border-radius: 8px;
+    }
+
+    /* make hero image shorter and center the text under a subtle backdrop */
+    .heroImg {
+        height: var(--hero-height-mobile);
+    }
+
+    .heroText {
+        position: absolute;
+        left: 50%;
+        top: auto;
+        bottom: 14px;
+        transform: translateX(-50%);
+        text-align: center;
+        max-width: calc(100% - 40px);
+        background: rgba(0, 0, 0, 0.25);
+        padding: 10px 14px;
+        border-radius: 999px;
+    }
+
+    .heroTitle {
+        font-size: 16px;
+        line-height: 1.1;
+    }
+
+    .heroSubtitle {
+        font-size: 13px;
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filtersRow {
+        gap: 8px;
+    }
+}
+
+/* utility helpers */
+.hidden {
+    display: none !important;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,219 @@
+.wrap {
+    margin: 0 auto;
+    padding: 12px 50px 40px;
+}
+
+.successCard {
+    background: #f7f7f9;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .06);
+}
+
+.headRow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: center;
+}
+
+.tick {
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: #eaffef;
+    color: #19b41d;
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 22px;
+    box-shadow: inset 0 0 0 2px #19b41d33;
+}
+
+.title {
+    margin: 0;
+    font-size: 36px;
+    color: #1fb41f;
+    font-weight: 800;
+    letter-spacing: .3px;
+}
+
+.lead {
+    text-align: center;
+    font-size: 20px;
+    color: #1f2937;
+    margin: 16px 0 10px;
+}
+
+.orderId {
+    text-align: center;
+    color: #4b5563;
+    margin: 0 0 12px;
+    font-weight: 600;
+}
+
+.blockTitle {
+    text-align: center;
+    letter-spacing: .4px;
+    margin: 10px 0 16px;
+}
+
+.detailBox {
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    max-width: 680px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .06);
+}
+
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 10px 8px;
+    color: #374151;
+    font-weight: 600;
+}
+
+.detailRow+.detailRow {
+    border-top: 1px dashed #e5e7eb;
+}
+
+.btnRow {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 18px;
+}
+
+.primaryBtn {
+    border: 0;
+    padding: 12px 18px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(90deg, #9333EA, #EC4899);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, .12);
+}
+
+.ghostBtn {
+    border: 2px solid #e5e7eb;
+    padding: 10px 18px;
+    border-radius: 12px;
+    background: #fff;
+    color: #1f2937;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* You may also like (same as elsewhere) */
+.recoSection {
+    margin-top: 34px;
+}
+
+.recoTitle {
+    color: #2D6AB1;
+    font-weight: 600;
+    font-size: 22px;
+    margin: 0 0 16px;
+}
+
+.recoGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+}
+
+.productCard {
+    position: relative;
+    padding-bottom: 26px;
+    background: none;
+    box-shadow: none;
+    border-radius: 0;
+}
+
+.card {
+    position: relative;
+    padding-bottom: 26px;
+}
+
+.link {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.imageWrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 3/3;
+    overflow: hidden;
+    background: #f3f4f6;
+    border-radius: 2px;
+}
+
+.img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .26s cubic-bezier(.22, .61, .36, 1);
+    will-change: transform;
+    transform-origin: 50% 50%;
+}
+
+.link:hover .img,
+.link:focus-visible .img {
+    transform: scale(1.05);
+}
+
+.caption {
+    position: absolute;
+    left: 50%;
+    bottom: -18px;
+    transform: translateX(-50%);
+    width: 82%;
+    background: #fff;
+    border-radius: 6px;
+    padding: 10px 8px;
+    text-align: center;
+    color: #2D6AB1;
+    font-weight: 500;
+    box-shadow: 0 10px 16px rgba(0, 0, 0, .12);
+}
+
+.whatsapp {
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width:1024px) {
+    .recoGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width:640px) {
+    .wrap {
+        padding: 12px 16px 34px;
+    }
+
+    .recoGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .caption {
+        width: 88%;
+    }
+
+    .title {
+        font-size: 28px;
+    }
+
+    .detailBox {
+        padding: 14px;
+    }
+}

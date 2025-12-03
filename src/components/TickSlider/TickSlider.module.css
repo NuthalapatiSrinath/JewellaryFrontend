@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --primary: #993399;
+    --rail: #cfcfcf;
+    --font: 'Montserrat', sans-serif;
+}
+
+/* outer wrapper */
+.wrapper {
+    font-family: var(--font);
+    width: 100%;
+    display: block;
+    position: relative;
+    user-select: none;
+}
+
+/* Labels container
+   Small horizontal gutters so labels don't touch the page edges.
+   We handle first/last specially so they won't be centered off-canvas. */
+.labelsAbsolute {
+    position: relative;
+    height: 54px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    /* reduced gutter (safe) */
+    pointer-events: none;
+}
+
+/* label button absolutely placed at left: pct% */
+.labelBtn {
+    position: absolute;
+    top: 6px;
+    pointer-events: auto;
+    background: transparent;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+/* Prevent first/last from using translateX(-50%) center transform
+   so they stay fully visible at the edges. */
+.labelBtn:first-child {
+    left: 0 !important;
+    transform: translateX(0) !important;
+}
+
+.labelBtn:last-child {
+    left: 100% !important;
+    transform: translateX(-100%) !important;
+}
+
+/* center labels keep the translateX(-50%) style (applied inline in JSX) */
+
+/* label text */
+.labelText {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    display: inline-block;
+    padding: 4px 6px;
+}
+
+.activeLabel .labelText {
+    color: var(--primary);
+    font-weight: 600;
+    transform: translateY(-2px);
+}
+
+/* Track */
+.trackWrap {
+    position: relative;
+    height: 18px;
+    display: block;
+    cursor: pointer;
+}
+
+/* Rail */
+.rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 4px;
+    transform: translateY(-50%);
+    background: var(--rail);
+    border-radius: 999px;
+    z-index: 1;
+}
+
+/* Filled portion */
+.filled {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 4px;
+    transform: translateY(-50%);
+    background: var(--primary);
+    border-radius: 999px;
+    z-index: 2;
+    transition: width 140ms cubic-bezier(.2, .9, .4, 1);
+}
+
+/* Thumb (dot) */
+.thumb {
+    position: absolute;
+    top: 10%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--primary);
+    box-shadow: 0 4px 10px rgba(153, 51, 153, 0.18);
+    transform: translate(-50%, -50%);
+    z-index: 3;
+    transition: left 120ms cubic-bezier(.2, .9, .4, 1);
+}
+
+/* Invisible native range input */
+.rangeInput {
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    width: 100%;
+    margin: 0;
+    background: transparent;
+    height: 40px;
+    z-index: 4;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.rangeInput:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 8px rgba(153, 51, 153, 0.06);
+    border-radius: 999px;
+}
+
+/* small info button (rendered once above the rail) */
+.infoBtn {
+    position: absolute;
+    left: 50%;
+    top: 28px;
+    /* just above the rail area */
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: default;
+    pointer-events: auto;
+    z-index: 6;
+}
+
+/* tooltip for info button (visible on hover) */
+.infoTooltip {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 8px);
+    background: white;
+    color: #222;
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    white-space: normal;
+    max-width: 320px;
+    font-size: 13px;
+    display: none;
+    z-index: 7;
+}
+
+/* show tooltip when hovering info button */
+.infoBtn:hover+.infoTooltip,
+.infoBtn:focus+.infoTooltip {
+    display: block;
+}
+
+/* Responsive */
+@media (max-width:520px) {
+    .labelsAbsolute {
+        height: 44px;
+        padding: 0 12px;
+        /* smaller gutter */
+    }
+
+    .labelText {
+        font-size: 12px;
+        padding: 3px 6px;
+    }
+
+    .thumb {
+        width: 12px;
+        height: 12px;
+    }
+
+    .infoBtn {
+        width: 30px;
+        height: 30px;
+        top: 26px;
+    }
+
+    .infoTooltip {
+        left: 50%;
+        top: calc(100% + 6px);
+        max-width: 240px;
+        font-size: 12px;
+    }
+}

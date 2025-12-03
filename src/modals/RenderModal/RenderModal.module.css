@@ -1,0 +1,21 @@
+/* RenderModal.module.css */
+.RenderModal {
+    position: relative;
+    width: 100%;
+    max-width: 1280px;
+    /* constrain width so it can't exceed viewport */
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 16px 48px;
+    box-sizing: border-box;
+
+    /* Improve animation performance and avoid layout-caused scroll */
+    will-change: transform, opacity;
+}
+
+/* allow the animated child to accept pointer events */
+.RenderModal>* {
+    pointer-events: auto;
+}

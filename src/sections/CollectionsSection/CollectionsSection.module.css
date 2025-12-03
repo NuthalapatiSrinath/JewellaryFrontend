@@ -1,0 +1,137 @@
+.container {
+    width: 100%;
+    margin: 60px auto;
+    padding: 0 3rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.header {
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+/* ===== GRID with areas ===== */
+.grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-auto-rows: 230px;
+    /* consistent row height */
+    gap: 24px;
+    grid-template-areas:
+        "large b c"
+        "large d e";
+}
+
+/* Map each card to an area (via JSX helper) */
+.areaLarge {
+    grid-area: large;
+}
+
+.areaB {
+    grid-area: b;
+}
+
+.areaC {
+    grid-area: c;
+}
+
+.areaD {
+    grid-area: d;
+}
+
+.areaE {
+    grid-area: e;
+}
+
+/* ===== CARD ===== */
+.card {
+    cursor: pointer;
+    border-radius: 16px;
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+/* Image only hover */
+.imageWrap {
+    width: 100%;
+    height: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.imageWrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .45s ease;
+}
+
+.imageWrap:hover img {
+    transform: scale(1.03);
+}
+
+/* Title below image, acts as a link */
+.title {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, .75);
+    margin-top: 10px;
+    margin-bottom: 8px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.title:hover {
+    color: #a020f0;
+}
+
+.title span {
+    font-size: 14px;
+    opacity: .7;
+}
+
+/* ===== TABLET (2 columns): large spans 4 rows on the left ===== */
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: 1.35fr 1fr;
+        grid-auto-rows: 200px;
+        grid-template-areas:
+            "large b"
+            "large c"
+            "large d"
+            "large e";
+    }
+}
+
+/* ===== MOBILE (1 column stack) ===== */
+@media (max-width: 640px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+        grid-template-areas:
+            "large"
+            "b"
+            "c"
+            "d"
+            "e";
+        gap: 18px;
+    }
+
+    /* Keep nice aspect on mobile for images */
+    .imageWrap {
+        aspect-ratio: 16 / 10;
+        height: auto;
+    }
+}

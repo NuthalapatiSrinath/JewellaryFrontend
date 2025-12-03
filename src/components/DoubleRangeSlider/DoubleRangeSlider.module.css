@@ -1,0 +1,77 @@
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 44px;
+    /* leave room for visual thumbs */
+    display: block;
+}
+
+/* visual rail and filled area */
+.railWrap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 8px;
+    pointer-events: none;
+}
+
+.rail {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background: #cfcfcf;
+    border-radius: 999px;
+    transform: translateY(0);
+}
+
+.filled {
+    position: absolute;
+    top: 0;
+    height: 4px;
+    background: #993399;
+    border-radius: 999px;
+    box-shadow: 0 2px 6px rgba(153, 51, 153, 0.15);
+}
+
+/* custom thumbs (visual) */
+.thumb {
+    position: absolute;
+    top: -60%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #993399;
+    box-shadow: 0 6px 12px rgba(153, 51, 153, 0.18);
+    transform: translateY(-50%) translateX(-50%);
+    pointer-events: none;
+    z-index: 3;
+}
+
+/* two transparent native ranges on top to capture pointer events */
+.rangeInput {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background: transparent;
+    pointer-events: auto;
+    margin: 0;
+    z-index: 4;
+    opacity: 0;
+    /* we hide native thumb; visuals are custom */
+}
+
+/* keyboard focus visible outline for accessibility */
+.rangeInput:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(153, 51, 153, 0.06);
+    border-radius: 999px;
+}

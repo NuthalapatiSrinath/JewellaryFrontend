@@ -1,0 +1,335 @@
+:root {
+    --fc-gap: 28px;
+    --fc-pad: 24px;
+    --fc-radius: 16px;
+
+    /* card/grid tuning */
+    --fc-card-w: 310px;
+    --fc-card-h: 560px;
+
+    /* heart / colors */
+    --heart-size: 28px;
+    --heart-bg: rgba(219, 202, 202, 0.4);
+    /* #DBCACA @ 40% */
+    --heart-active-fill: #e0003b;
+    --card-bg: #ffffff;
+    --image-bg: rgba(219, 202, 202, 0.12);
+    /* subtle image background (optional) */
+}
+
+/* SECTION */
+.section {
+    padding: 12px 12px 32px;
+    background: var(--Background_Color);
+}
+
+/* HEADER: title left, controls right */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 0 var(--fc-pad);
+}
+
+/* Controls container (keeps buttons right) */
+.controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+}
+
+/* NAV BUTTONS */
+.nav {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: #efefef;
+    color: #6b6b6b;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(12, 10, 20, 0.06);
+    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    padding: 0;
+}
+
+.nav svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    stroke-width: 2.2;
+}
+
+.nav:hover {
+    transform: translateY(-1px);
+    background: #eee;
+    box-shadow: 0 3px 10px rgba(12, 10, 20, 0.08);
+}
+
+.nav:disabled {
+    opacity: 0.42;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* VIEWPORT + SCROLLER */
+.viewport {
+    overflow: hidden;
+    position: relative;
+    max-width: calc((var(--fc-card-w) * 4) + (var(--fc-gap) * 3) + (var(--fc-pad) * 2));
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.scroller {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--fc-card-w);
+    /* each item column = fixed card width */
+    gap: var(--fc-gap);
+    overflow-x: auto;
+    padding: var(--fc-pad);
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: var(--fc-pad);
+    -webkit-overflow-scrolling: touch;
+    align-items: start;
+    -ms-overflow-style: none;
+    /* IE 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+/* hide webkit scrollbar */
+.scroller::-webkit-scrollbar {
+    height: 0;
+    display: none;
+}
+
+/* SCROLLER ITEM */
+.item {
+    scroll-snap-align: start;
+    display: block;
+}
+
+/* CARD - fixed height so all cards match */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--fc-radius);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .18s ease, box-shadow .18s ease;
+    width: 100%;
+    height: var(--fc-card-h);
+    min-height: var(--fc-card-h);
+    box-sizing: border-box;
+}
+
+/* image area fixed */
+.imageWrap {
+    position: relative;
+    width: 100%;
+    height: 271px;
+    /* design image height */
+    max-height: 271px;
+    background: var(--image-bg);
+    /* subtle background; change to #fff to remove */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* image scaling inside fixed box */
+.image {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    transition: transform .28s ease;
+}
+
+.card:hover .image {
+    transform: scale(1.03);
+}
+
+/* HEART button (circle with SVG inside) */
+.heart {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: var(--heart-size);
+    height: var(--heart-size);
+    border: none;
+    border-radius: 50%;
+    background: var(--heart-bg);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform .15s ease, background .18s ease;
+    z-index: 4;
+    padding: 0;
+}
+
+.heart:hover {
+    transform: scale(1.06);
+}
+
+/* SVG inside heart */
+.heartIcon {
+    width: 15px;
+    height: 15px;
+    fill: #ffffff;
+    /* default white heart */
+    transition: fill .18s ease;
+}
+
+/* Active (clicked) heart: white circle + red heart */
+.heartActive {
+    background: #ffffff;
+}
+
+.heartActive .heartIcon {
+    fill: var(--heart-active-fill);
+}
+
+/* CARD BODY */
+.body {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1 1 auto;
+    gap: 8px;
+}
+
+/* SWATCH ROW */
+.swatchRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--card-bg);
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: transform .12s ease;
+}
+
+.swatch:hover {
+    transform: scale(1.07);
+}
+
+.swatchActive {
+    box-shadow: 0 0 0 2px #a9bd0b;
+}
+
+.metalText {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    font-weight: 500;
+    color: #a9bd0b;
+}
+
+/* PRODUCT INFO */
+.title {
+    font-family: var(--Font_Family);
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.85);
+    margin: 0 0 4px 0;
+}
+
+.subtitle {
+    font-family: var(--Font_Family);
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.65);
+    margin: 0 0 12px 0;
+}
+
+.price {
+    font-family: var(--Font_Family);
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+}
+
+/* RESPONSIVE LAYOUT */
+/* 3 cards across */
+@media (max-width: 1300px) {
+    .viewport {
+        max-width: calc((var(--fc-card-w) * 3) + (var(--fc-gap) * 2) + (var(--fc-pad) * 2));
+    }
+}
+
+/* 2 cards across (tablet) */
+@media (max-width: 1024px) {
+    :root {
+        --fc-card-w: 300px;
+        --fc-card-h: 540px;
+    }
+
+    .viewport {
+        max-width: calc((var(--fc-card-w) * 2) + (var(--fc-gap) * 1) + (var(--fc-pad) * 2));
+    }
+
+    .scroller {
+        grid-auto-columns: var(--fc-card-w);
+        gap: 22px;
+    }
+}
+
+/* 1 card across (mobile) */
+@media (max-width: 600px) {
+    :root {
+        --fc-card-w: calc(100% - 40px);
+        --fc-card-h: auto;
+    }
+
+    .scroller {
+        grid-auto-columns: 80%;
+        gap: 14px;
+        padding: 10px;
+    }
+
+    .viewport {
+        max-width: 100%;
+    }
+
+    .card,
+    .item {
+        height: auto;
+        min-height: 0;
+    }
+
+    .imageWrap {
+        height: 230px;
+        max-height: 230px;
+    }
+}
+
+/* small polish: ensure header title and controls align nicely when controls are absolutely positioned */
+.viewport .controls {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    background: transparent;
+    gap: 8px;
+    padding: 0;
+}

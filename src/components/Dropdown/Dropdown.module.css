@@ -1,0 +1,92 @@
+.dropdownContainer {
+    position: relative;
+    display: inline-block;
+    color: rgba(0, 0, 0, 0.9);
+    background-color: var(--Utility_Color1);
+    border-radius: 24px;
+    max-width: 100%;
+}
+
+/* main clickable area */
+.Dropdown {
+    border-radius: 24px;
+    padding: 4px 12px;
+    min-width: 99px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--Font_Size_2);
+    font-weight: 400;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* NEW: label row that holds optional leftIcon + label + extraIcon */
+.labelRow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* small gap between icon and label */
+    min-width: 0;
+    /* allow text truncation if needed */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+/* label text (will shrink if container constrained) */
+.labelText {
+    font-size: inherit;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* optional icons next to label */
+.leftIcon,
+.extraIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+    flex: 0 0 auto;
+}
+
+/* style for chevron on right (existing) */
+.icon {
+    transition: transform 0.2s ease;
+    color: var(--Black_Color);
+}
+
+.iconOpen {
+    transform: rotate(180deg);
+}
+
+/* options list and items (unchanged) */
+.optionsList {
+    position: absolute;
+    white-space: nowrap;
+    left: 0;
+    width: 100%;
+    background-color: var(--White_Color);
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+    padding: 0.1rem 0;
+    list-style: none;
+    box-shadow: 8px 8px 24px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+}
+
+.optionItem {
+    padding: 0.5rem 0.75rem;
+    font-size: var(--Font_Size_2);
+    color: var(--Black_Color);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.optionItem:hover {
+    color: var(--Primary_Color);
+}

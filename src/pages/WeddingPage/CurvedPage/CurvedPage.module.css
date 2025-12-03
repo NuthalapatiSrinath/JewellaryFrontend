@@ -1,0 +1,527 @@
+:root {
+    /* --Primary_Color: #111111; */
+    --muted: #7d7d7d;
+    /* --page-max: 1200px; */
+}
+
+/* page wrap */
+.pageWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;background-color: #fff;
+    padding: 40px 24px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+/* hero */
+.hero {
+    width: 100%;
+    max-width: var(--page-max);
+    text-align: center;
+    padding: 8px 12px 24px;
+}
+
+.breadcrumb {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.title {
+    font-size: 48px;
+    margin: 8px 0 18px;
+    letter-spacing: 1px;
+    font-weight: 800;
+    color: var(--Primary_Color);
+}
+
+.subtitle {
+    max-width: 960px;
+    margin: 0 auto;
+    color: #333;
+    font-size: 18px;
+    line-height: 1.7;
+    padding: 0 24px;
+}
+
+/* category selector container (keeps it full-width like screenshot) */
+.selectorWrap {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 12px;
+}
+
+/* content area */
+.content {
+    width: 100%;
+    /* max-width: var(--page-max); */
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+/* products grid (placeholder) */
+.productsSection {
+    margin-top: 8px;
+}
+
+.productsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+/* product card */
+.productCard {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: transform 0.16s ease, box-shadow 0.12s ease;
+}
+
+.productCard:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.productImage {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.productImage img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.productInfo {
+    margin-top: 12px;
+}
+
+.productTitle {
+    font-weight: 600;
+    font-size: 16px;
+    color: #111;
+}
+
+.productPrice {
+    color: var(--muted);
+    margin-top: 6px;
+}
+/* ---------- FILTER / TOP CONTROLS STYLES (Gifts page) ---------- */
+
+/* filter icon in the button */
+.filterIcon {
+    font-size: 16px;
+    display: inline-block;
+    transform: translateY(-1px);
+    margin-right: 8px;
+}
+
+/* Big rounded FILTER button */
+.bigFilterBtn {
+    border-radius: 40px;
+    padding: 12px 22px;
+    border: 2px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+/* hover / active */
+.bigFilterBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+/* smaller clear button (used for Clear in top row) */
+.clearBtn {
+    padding: 10px 14px;
+    border-radius: 28px;
+    border: 1px solid #dcdcdc;
+    background: #fff;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background .12s, transform .08s;
+}
+
+/* small search input is already in place (filterInput), but ensure height aligns with pills */
+.filterInput {
+    height: 44px;
+    padding: 10px 14px;
+    border-radius: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(153, 51, 153, 0.03);
+    box-sizing: border-box;
+}
+
+/* top items count small style (used beside controls) */
+.itemsCount {
+    font-size: 18px;
+    color: #111;
+    font-weight: 600;
+}
+
+/* sticky variant (when filter button should float) */
+.sticky {
+    position: fixed;
+    right: 28px;
+    top: 110px;
+    z-index: 1600;
+    background: #fff;
+}
+
+/* on mobile, shrink padding for the big filter button */
+@media (max-width: 720px) {
+    .bigFilterBtn {
+        padding: 10px 14px;
+        border-radius: 32px;
+    }
+
+    .filterInput {
+        width: 100% !important;
+        height: 44px;
+    }
+}
+
+/* utility: small icon badge / subtle pill */
+.smallPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    font-weight: 700;
+}
+
+/* subtle focus outlines for accessibility */
+.bigFilterBtn:focus,
+.clearBtn:focus,
+.smallPill:focus {
+    outline: 3px solid rgba(153, 51, 153, 0.12);
+    outline-offset: 2px;
+}
+
+/* If you use an icon inside the button (SVG), ensure it is vertically centered */
+.bigFilterBtn svg,
+.clearBtn svg {
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+}
+
+/* responsive */
+@media (max-width: 1024px) {
+    .productsGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .title {
+        font-size: 40px;
+    }
+}
+
+@media (max-width: 720px) {
+    .productsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .title {
+        font-size: 30px;
+    }
+
+    .subtitle {
+        font-size: 15px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 420px) {
+    .productsGrid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .pageWrap {
+        padding: 24px 12px;
+    }
+}
+
+/* ===========================
+   Dropdown-style filters row
+   =========================== */
+
+.filtersWrap {
+    width: 100%;
+}
+
+.filterRowDropdown {
+    width: 100%;
+    max-width: var(--page-max, 1300px);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 12px;
+    box-sizing: border-box;
+}
+
+/* each dropdown wrapper */
+.filterDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* summary styled as a pill/button */
+.filterSummaryButton {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: none;
+    transition: box-shadow 0.12s ease, transform 0.08s ease, border-color 0.12s ease;
+}
+
+/* remove default disclosure marker in most browsers */
+.filterSummaryButton::-webkit-details-marker {
+    display: none;
+}
+
+/* panel that shows when details open */
+.filterDropdownPanel {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    min-width: 220px;
+    z-index: 1200;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 8px 30px rgba(10, 10, 10, 0.06);
+    box-sizing: border-box;
+}
+
+/* make panel visually centered for wider dropdowns (optional) */
+.filterDropdown[open] .filterDropdownPanel {
+    display: block;
+}
+
+/* input inside dropdown uses existing filterInput styling */
+.filterDropdownPanel .filterInput {
+    margin: 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-sizing: border-box;
+}
+
+/* swatches in dropdown keep same look but stacked horizontally */
+.filterDropdownPanel .swatches {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* clear button wrapper to align with other controls */
+.filterClearWrap {
+    display: inline-flex;
+    align-items: center;
+    padding-left: 6px;
+}
+
+/* ensure details doesn't break the row layout visually when open */
+.filterDropdown[open] {
+    z-index: 1300;
+    /* on top of other content */
+}
+
+/* existing filterInput/clearBtn styles (lightweight, consistent) */
+.filterInput {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(153, 51, 153, 0.04);
+    box-sizing: border-box;
+}
+
+.clearBtn {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* metal button styles used in dropdown */
+.metalBtn {
+    padding: 8px 10px;
+    border-radius: 24px;
+    border: 1px solid #eee;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.metalBtnActive {
+    background: rgba(153, 51, 153, 0.08);
+    border-color: var(--Primary_Color, #993399);
+    color: var(--Primary_Color, #993399);
+}
+
+/* mobile: convert row to stacked controls */
+@media (max-width: 720px) {
+    .filterRowDropdown {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+
+    /* dropdown panels should be static and in-flow on mobile (not absolute) */
+    .filterDropdownPanel {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        border-radius: 8px;
+        padding: 10px;
+    }
+
+    .filterSummaryButton {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+/* -------- Top row: items count (left) + filters (right) -------- */
+.topRowFilters {
+    width: 100%;
+    /* max-width: var(--page-max, 1300px); */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* left = count, right = filters */
+    gap: 12px;
+    padding: 0 12px 18px 12px;
+    box-sizing: border-box;
+}
+
+/* left items count */
+.itemsCountLeft {
+    font-size: 18px;
+    color: #111;
+    font-weight: 500;
+}
+
+/* right filter container */
+.filtersRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* keep each dropdown wrapper styling (shared with previous rules) */
+.filterDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* summary styled as a pill/button */
+.filterSummaryButton {
+    list-style: none;
+    cursor: pointer;
+    padding: 10px 16px;
+    border-radius: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: #fff;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: none;
+    transition: box-shadow 0.12s ease, transform 0.08s ease, border-color 0.12s ease;
+}
+
+/* hide marker */
+.filterSummaryButton::-webkit-details-marker {
+    display: none;
+}
+
+/* absolute panels */
+.filterDropdownPanel {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    min-width: 220px;
+    z-index: 1400;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 12px;
+    box-shadow: 0 8px 30px rgba(10, 10, 10, 0.06);
+    box-sizing: border-box;
+}
+
+/* ensure open dropdown appears above others */
+.filterDropdown[open] {
+    z-index: 1500;
+}
+
+/* small screens: stack filters under count */
+@media (max-width: 720px) {
+    .topRowFilters {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 0 12px;
+    }
+
+    .filtersRight {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .filterDropdownPanel {
+        position: relative;
+        top: 0;
+        left: 0;
+        box-shadow: none;
+        border-radius: 8px;
+    }
+
+    .filterSummaryButton {
+        width: auto;
+        padding: 10px 14px;
+    }
+}

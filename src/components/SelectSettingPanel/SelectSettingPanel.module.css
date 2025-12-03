@@ -1,0 +1,1007 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --brand-purple: #a54ea8;
+    --bg: #fff;
+}
+
+/* Base */
+.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: "Montserrat", sans-serif;
+    color: rgba(0, 0, 0, 0.85);
+    background: var(--bg);
+}
+
+/* header */
+.headerRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Prevent hover vertical jump for metal chips */
+.chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    transform: translateY(0) !important;
+    transition: box-shadow 160ms ease, background 120ms ease, transform 120ms ease !important;
+    will-change: box-shadow, transform;
+}
+
+/* Inner circle stays absolutely positioned — border changes won't affect layout */
+.chipInner {
+    position: relative;
+    transform: translateY(0) !important;
+    transition: none;
+    background: #fff;
+    /* default inner background */
+}
+
+/* make inner label text black (per your screenshots) */
+.chipLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000 !important;
+    /* changed: black text inside the colored inner circle */
+}
+
+/* Pseudo-ring: change color/width but do NOT change chip size or position */
+.chip .chipInner::before {
+    transition: border-color 160ms ease, box-shadow 160ms ease, border-width 120ms ease;
+    box-sizing: border-box;
+    pointer-events: none;
+    transform: translateZ(0);
+}
+
+/* Hover/focus — visually lift using shadow only, no translate */
+.chip:hover,
+.chip:focus-visible {
+    transform: translateY(0) !important;
+    box-shadow: 0 14px 34px rgba(17, 12, 38, 0.06) !important;
+}
+
+/* Active state (keyboard/pressed) — don't move */
+.chip:active,
+.chipActive:active {
+    transform: translateY(0) !important;
+    box-shadow: 0 12px 30px rgba(17, 12, 38, 0.06) !important;
+}
+
+/* Ensure the pseudo-ring thickness change doesn't reflow layout */
+.chip .chipInner::before {
+    width: calc(var(--inner-circle-size) + 6px);
+    height: calc(var(--inner-circle-size) + 6px);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) translateZ(0);
+}
+
+.chipActive .chipInner::before {
+    border-width: 4px !important;
+}
+
+/* ---------- Strong overrides to prevent chip "jump" on hover ---------- */
+.panel .chips .chip,
+.panel .chips .chip * {
+    transform: none !important;
+    -webkit-transform: none !important;
+    -moz-transform: none !important;
+    transition: box-shadow 160ms ease !important;
+    will-change: box-shadow !important;
+    vertical-align: middle !important;
+}
+
+.panel .chips .chip .chipInner {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: translateZ(0) !important;
+    -webkit-transform: translateZ(0) !important;
+    transition: none !important;
+}
+/* ---- remove circular borders from metal chips (no other changes) ---- */
+.panel .chips .chip .chipInner::before,
+.chipInner::before {
+    border: none !important;
+    /* keep the subtle shadow if you still want the soft depth */
+    /* if you prefer no shadow either, uncomment the next line: */
+    /* box-shadow: none !important; */
+}
+.panel .chips .chip .chipInner::before {
+    box-sizing: border-box !important;
+    width: calc(var(--inner-circle-size) + 6px) !important;
+    height: calc(var(--inner-circle-size) + 6px) !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) translateZ(0) !important;
+    /* border-width: 3px !important; */
+    transition: border-color 160ms ease, box-shadow 160ms ease !important;
+    pointer-events: none !important;
+}
+
+.panel .chips .chipActive .chipInner::before {
+    /* border-width: 4px !important; */
+}
+
+.panel .chips .chip:hover,
+.panel .chips .chip:focus-visible,
+.panel .chips .chip:active {
+    transform: none !important;
+    -webkit-transform: none !important;
+    box-shadow: 0 12px 34px rgba(17, 12, 38, 0.06) !important;
+}
+
+.panel .chips .chip:hover,
+.panel .chips .chip:focus,
+.panel .chips .chip:focus-within,
+.panel .chips .chip:active {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.panel .chips .chipLabel {
+    transition: color 120ms ease !important;
+}
+
+.panel .chips .chip .chipInner {
+    padding: 0 !important;
+}
+
+.panel .chips .chip:hover,
+.panel .chips .chip:focus {
+    -webkit-transform: none !important;
+    -ms-transform: none !important;
+    transform: none !important;
+}
+
+.chip:hover,
+.chip:focus,
+.chip:focus-within {
+    -webkit-transform: translateY(0) !important;
+    -moz-transform: translateY(0) !important;
+    transform: translateY(0) !important;
+}
+
+.icons {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* ---- metal ring color fixes (and inner fill colors) ---- */
+.panel .chips .chip .chipInner::before {
+    opacity: 1 !important;
+    box-sizing: border-box;
+    transition: border-color 160ms ease, border-width 120ms ease, box-shadow 160ms ease;
+}
+
+/* metal ring color + inner fill color + label color black */
+.panel .chips .chip[data-metal="14k_yellow"] .chipInner::before {
+    --ring-color: #D5AB4F;
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 6px 18px rgba(213, 171, 79, 0.08);
+}
+
+.panel .chips .chip[data-metal="14k_yellow"] .chipInner {
+    background: #ECD9B3;
+    /* warm yellow inner fill */
+}
+
+.panel .chips .chip[data-metal="14k_white"] .chipInner::before {
+    --ring-color: #D9D9D9;
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 6px 18px rgba(217, 217, 217, 0.06);
+}
+
+.panel .chips .chip[data-metal="14k_white"] .chipInner {
+    background: #E9E9E9;
+    /* white gold inner fill */
+}
+
+.panel .chips .chip[data-metal="14k_rose"] .chipInner::before {
+    --ring-color: #EAD0D0;
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 6px 18px rgba(234, 208, 208, 0.06);
+}
+
+.panel .chips .chip[data-metal="14k_rose"] .chipInner {
+    background: #F2D7D2;
+    /* rose gold inner fill */
+}
+
+.panel .chips .chip[data-metal="18k"] .chipInner::before {
+    --ring-color: #CFA84A;
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 6px 18px rgba(207, 168, 74, 0.08);
+}
+
+.panel .chips .chip[data-metal="18k"] .chipInner {
+    background: #E8D5B0;
+    /* 18k gold inner fill */
+}
+
+.panel .chips .chip[data-metal="pt"] .chipInner::before {
+    --ring-color: #CBD5DB;
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 6px 18px rgba(203, 213, 219, 0.06);
+}
+
+.panel .chips .chip[data-metal="pt"] .chipInner {
+    background: #F6DCDC;
+    /* subtle tint for Pt (you can change) */
+}
+
+/* fallback default */
+.panel .chips .chip[data-metal="default"] .chipInner::before,
+.panel .chips .chip:not([data-metal]) .chipInner::before {
+    --ring-color: #D9D9D9;
+    border-color: var(--ring-color) !important;
+}
+
+/* hover / focus: make the ring pop */
+.panel .chips .chip:hover .chipInner::before,
+.panel .chips .chip:focus-visible .chipInner::before {
+    /* border-color: var(--ring-color) !important; */
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+    transform: translateZ(0);
+}
+
+/* active state: thicker ring + keep color */
+.panel .chips .chipActive .chipInner::before {
+    /* border-width: 4px !important; */
+    border-color: var(--ring-color) !important;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.06);
+}
+
+/* active label color */
+.panel .chips .chipActive .chipLabel,
+.panel .chips .chipActive .caratLabel {
+    color: var(--brand-purple) !important;
+    font-weight: 600;
+}
+
+/* Optional: metal-specific label tint when active (keeps subtle) */
+.panel .chips .chip[data-metal="14k_yellow"].chipActive .chipLabel {
+    color: #C89A3E !important;
+}
+
+.panel .chips .chip[data-metal="14k_white"].chipActive .chipLabel {
+    color: #7f7f7f !important;
+}
+
+.panel .chips .chip[data-metal="14k_rose"].chipActive .chipLabel {
+    color: #d99b9b !important;
+}
+
+.panel .chips .chip[data-metal="18k"].chipActive .chipLabel {
+    color: #B7892F !important;
+}
+
+.panel .chips .chip[data-metal="pt"].chipActive .chipLabel {
+    color: #7f8b93 !important;
+}
+
+/* heart/share */
+.heart {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(219, 202, 202, 0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.heartActive {
+    background: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.heartIcon {
+    width: 17px;
+    height: 17px;
+    fill: #ffffff;
+}
+
+.heartActive .heartIcon {
+    fill: #e0003b;
+}
+
+.shareBtn {
+    background: transparent;
+    border: none;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* subtitle & rating */
+.subtitleSmall {
+    color: var(--brand-purple);
+    margin: 6px 0 0 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+.stars {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.starWrap {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+}
+
+.starFill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ratingNum {
+    margin-left: 8px;
+    font-size: 16px;
+    color: #000;
+}
+
+/* separator */
+.sep {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 12px 0;
+}
+
+/* option rows */
+.optionSection {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.optionRow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+.label {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 6px;
+}
+
+.selectedLabel {
+    font-size: 18px;
+    color: var(--brand-purple);
+    font-weight: 500;
+}
+
+/* chips */
+.chips {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.chip {
+    --chip-size: 55px;
+    --inner-circle-size: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--chip-size);
+    height: var(--chip-size);
+    border-radius: 14px;
+    background: #fff;
+    border: none;
+    box-shadow: 0 10px 68px rgba(17, 12, 38, 0.05);
+    cursor: pointer;
+}
+
+.chipInner {
+    width: var(--inner-circle-size);
+    height: var(--inner-circle-size);
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.chipInner::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--inner-circle-size) + 6px);
+    height: calc(var(--inner-circle-size) + 6px);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 3px solid #D9D9D9;
+    background: transparent;
+    pointer-events: none;
+}
+
+.chipLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #000 !important;
+}
+
+.chipActive {
+    box-shadow: 0 12px 36px rgba(17, 12, 38, 0.04);
+}
+
+.chipActive .chipLabel {
+    color: var(--brand-purple);
+}
+
+/* shapes row */
+.shapeRow {
+    display: flex;
+    gap: px;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.shapeBtn {
+    width: 48px;
+    height: 48px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 6px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    box-shadow: none;
+    transition: box-shadow 140ms ease, transform 120ms ease;
+}
+
+.shapeBtn:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    transform: translateY(0);
+}
+
+.shapeBtnActive {
+    box-shadow: 0 12px 36px rgba(165, 78, 168, 0.08);
+    border-radius: 8px;
+    background: rgba(165, 78, 168, 0.03);
+}
+
+.shapeImg {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    filter: none;
+}
+
+
+.caratRow {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    /* added: scroll when overflow */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+}
+
+.caratRow::-webkit-scrollbar {
+    height: 8px;
+}
+
+.caratRow::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+}
+
+/* carat chips */
+.caratChip {
+    min-width: 78px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(17, 12, 38, 0.04);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    flex: 0 0 auto;
+}
+
+.caratChipActive {
+    background: rgba(165, 78, 168, 0.04);
+    box-shadow: 0 12px 36px rgba(165, 78, 168, 0.04);
+}
+
+.caratLabel {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* custom select (ring) */
+.customSelectWrap {
+    position: relative;
+    min-width: 160px;
+    display: inline-block;
+    margin-left: 8px;
+    z-index: 40;
+}
+
+.customSelectButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 160px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid rgba(165, 78, 168, 0.12);
+    box-shadow: 0 18px 36px rgba(165, 78, 168, 0.04);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.customSelectLabel {}
+
+.customSelectChevron {
+    font-size: 16px;
+    color: #2b2b2b;
+    opacity: 0.9;
+    margin-left: 6px;
+}
+
+.customSelectList {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    min-width: 220px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 8px;
+    box-shadow: 0 18px 50px rgba(17, 12, 38, 0.08);
+    list-style: none;
+    margin: 0;
+    max-height: 320px;
+    overflow: auto;
+}
+
+.customSelectItem {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin: 4px 4px;
+    cursor: pointer;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+.customSelectItem:hover,
+.customSelectItem[aria-selected="true"] {
+    background: rgba(165, 78, 168, 0.06);
+    color: var(--brand-purple);
+}
+
+.ringHelpLink {
+    color: rgba(0, 0, 0, 0.75);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.ringHelpLink:hover {
+    text-decoration: underline;
+}
+
+/* engrave */
+.engraveBtn {
+    background: transparent;
+    border: none;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* PRICE + CTA */
+.priceSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.priceLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.priceOld {
+    color: #9a9a9a;
+    text-decoration: line-through;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.priceNew {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+}
+
+.settingPriceNote {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: 6px;
+}
+
+.discountBadge {
+    display: inline-block;
+    margin-left: 6px;
+    background: #dff7e6;
+    color: #0a8f44;
+    padding: 6px 8px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.priceNote {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 4px;
+}
+
+
+.fullInventoryBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 90px;
+    border-radius: 10px;
+    border: 2px solid rgba(165, 78, 168, 0.5);
+    background: transparent;
+    color: var(--brand-purple);
+    font-weight: 600;
+    cursor: pointer;
+    /* min-width: 160px; */
+    box-shadow: none;
+    transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+    flex: 0 0 auto;
+}
+
+.fullInventoryBtn:hover,
+.fullInventoryBtn:focus {
+    background: rgba(165, 78, 168, 0.06);
+    box-shadow: 0 10px 28px rgba(165, 78, 168, 0.06);
+    outline: none;
+}
+
+/* ship row */
+.shipRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+}
+
+.shipIcon {
+    width: 28px;
+    height: 28px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(165, 78, 168, 0.06);
+    box-shadow: 0 8px 30px rgba(165, 78, 168, 0.04);
+    flex: 0 0 28px;
+}
+
+/* FEATURES (colored icons) */
+.featuresHeading {
+    font-size: 20px;
+    font-weight: 400;
+    color: #666;
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+.featuresList {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.featureItem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    cursor: default;
+}
+
+.featureIcon {
+    --feature-stroke: #8a8a8a;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    flex: 0 0 48px;
+}
+
+.featureIcon svg,
+.featureIcon svg * {
+    stroke: var(--feature-stroke);
+    fill: var(--feature-fill, transparent);
+}
+
+.featureIconColored {
+    --feature-stroke: var(--brand-purple);
+    --feature-fill: rgba(165, 78, 168, 0.08);
+    background: rgba(165, 78, 168, 0.06);
+    box-shadow: 0 8px 30px rgba(165, 78, 168, 0.04);
+}
+
+.featureContent {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.featureTitle {
+    font-weight: 600;
+    font-size: 15px;
+    color: #6f6f6f;
+}
+
+.featureDesc {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    line-height: 1.35;
+}
+
+/* ACCORDION */
+.accordion {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.accItem {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+    display: block;
+}
+
+.accHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.85);
+    background: transparent;
+    padding: 6px 0;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.accToggle {
+    font-size: 20px;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.6);
+    min-width: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accBodyWrap {
+    overflow: hidden;
+    transition: max-height 300ms cubic-bezier(.2, .9, .3, 1), opacity 220ms ease;
+    max-height: 0;
+    opacity: 0;
+    will-change: max-height, opacity;
+}
+
+.accBodyWrapOpen {
+    max-height: 800px;
+    opacity: 1;
+}
+
+.accBody {
+    margin-top: 12px;
+    background: rgba(165, 78, 168, 0.06);
+    padding: 16px;
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.45;
+}
+
+.accIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* pink box used in accordion detail */
+.pinkBox {
+    background: rgba(165, 78, 168, 0.08);
+    border-radius: 6px;
+    padding: 12px 14px;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+/* responsive tweaks */
+@media (max-width: 640px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .chip {
+        --chip-size: 52px;
+        --inner-circle-size: 34px;
+    }
+
+    .priceNew {
+        font-size: 18px;
+    }
+}@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --brand-purple: #a54ea8;
+    --bg: #fff;
+}
+
+/* (all your previous CSS content stays exactly the same up until the carat styles) */
+
+/* center stone / carat row - restructure so only chips scroll */
+.caratWrap {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+    padding:1rem;
+    width: 100%;
+    /* prevent caratWrap from causing page overflow */
+    overflow: hidden;
+}
+
+/* Scroll container for the chips alone */
+.caratScroll {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    flex: 1 1 auto;
+    /* take available space */
+    min-width: 0;
+    /* allow shrinking so overflow works correctly */
+    overflow-x: auto;
+    /* only this area scrolls horizontally */
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+}
+
+/* hide horizontal scrollbar on most platforms (optional visual) */
+.caratScroll::-webkit-scrollbar {
+    height: 8px;
+}
+
+/* .caratScroll::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+} */
+
+
+.caratAction {
+    flex: 0 0 auto;
+    /* do not shrink; remain visible on the right */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* carat chips (keep existing styles — only ensure they don't force wrap) */
+.caratChip {
+    min-width: 58px;
+    height: 48px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    box-shadow: 0 18px 40px rgba(17, 12, 38, 0.04);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px 12px;
+    flex: 0 0 auto;
+}
+
+.caratChipActive {
+    background: rgba(165, 78, 168, 0.04);
+    box-shadow: 0 12px 36px rgba(165, 78, 168, 0.04);
+}
+
+.caratLabel {
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+
+.fullInventoryBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 10px;
+    border-radius: 8px;
+    font-size: var(--Font_Size_4);
+    border: 1px solid #ad5cad;
+    background: transparent;
+    color: var(--brand-purple);
+    font-weight: 500;
+    cursor: pointer;
+  
+    box-shadow: none;
+    transition: background 160ms ease, color 160ms ease, box-shadow 160ms ease;
+}
+
+.fullInventoryBtn:hover,
+.fullInventoryBtn:focus {
+    background: rgba(165, 78, 168, 0.06);
+    box-shadow: 0 10px 28px rgba(165, 78, 168, 0.06);
+    outline: none;
+}
+
+/* remaining CSS (unchanged) — paste your full existing CSS below this line */
+/* ... (rest of your CSS as before: customSelect, chips, shapes, features, accordion, etc.) */

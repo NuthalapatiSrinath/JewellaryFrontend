@@ -1,0 +1,1182 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --pc-radius: 16px;
+    --pc-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+    --brand-purple: #a54ea8;
+}
+
+/* Base panel */
+.panel {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    font-family: "Montserrat", sans-serif;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.headerRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.title {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 400;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.icons {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+/* HEART */
+.heart {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(219, 202, 202, 0.4);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .18s ease;
+    z-index: 3;
+    padding: 0;
+}
+
+.heartIcon {
+    width: 17px;
+    height: 17px;
+    fill: #ffffff;
+    transition: fill .25s ease;
+}
+
+.heart:hover {
+    transform: scale(1.05);
+}
+
+.heartActive {
+    background: #ffffff;
+}
+
+.heartActive .heartIcon {
+    fill: #e0003b;
+}
+
+.shareBtn {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+    transition: transform .15s ease;
+}
+
+.shareBtn:hover {
+    transform: scale(1.05);
+}
+
+/* subtitle */
+.subtitle {
+    color: var(--brand-purple);
+    margin: 0;
+    font-size: 16px;
+}
+
+/* rating */
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #333;
+    margin-top: 6px;
+}
+
+.stars {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.starWrap {
+    display: inline-block;
+    position: relative;
+    width: 18px;
+    height: 18px;
+}
+
+.starFill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.ratingNum {
+    color: #000;
+    font-size: 16px;
+    margin-left: 8px;
+}
+
+.sep {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 8px 0;
+}
+
+/* OPTIONS */
+.optionSection {
+    margin-top: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.optionRow {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    justify-content: flex-start;
+}
+
+/* Hover target for option rows */
+.optionRow:hover .selectedLabel,
+.optionRow:focus-within .selectedLabel {
+    color: var(--brand-purple);
+    transition: color 180ms ease;
+}
+
+.label {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 6px;
+}
+
+.selectedLabel {
+    font-size: 18px;
+    color: var(--brand-purple);
+    font-weight: 500;
+    transition: color 180ms ease;
+}
+
+/* CHIPS */
+.chips {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+}
+
+.chip {
+    --chip-size: 55px;
+    --inner-circle-size: 35px;
+    --ring-width: 3px;
+    --tile-shadow: 0 10px 68px rgba(17, 12, 38, 0.05);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--chip-size);
+    height: var(--chip-size);
+    padding: 0;
+    border-radius: 14px;
+    background: #fff;
+    border: none;
+    box-shadow: var(--tile-shadow);
+    cursor: pointer;
+    transition: box-shadow .12s ease, background .12s ease, transform 110ms ease;
+    position: relative;
+}
+
+/* NOTE: chipInner background and ring colors are variable-driven now.
+   Use --chip-fill for the inner fill and --ring-color for the outer ring. */
+.chipInner {
+    width: var(--inner-circle-size);
+    height: var(--inner-circle-size);
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    position: relative;
+    /* background is driven by --chip-fill with a sensible fallback */
+    background: var(--chip-fill, #fff);
+    box-sizing: border-box;
+}
+
+/* pseudo-ring uses --ring-color (fallback kept) */
+.chipInner::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: calc(var(--inner-circle-size) + (var(--ring-width) * 2));
+    height: calc(var(--inner-circle-size) + (var(--ring-width) * 2));
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: var(--ring-width) solid var(--ring-color, #D9D9D9);
+    box-sizing: border-box;
+    background: transparent;
+    pointer-events: none;
+}
+
+.chipLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.75);
+    z-index: 2;
+    user-select: none;
+}
+
+.carat {
+    --chip-size: 50px;
+    width: var(--chip-size);
+    height: var(--chip-size);
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(17, 12, 38, 0.05);
+}
+
+.caratLabel {
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* Default hover */
+.chip:hover,
+.carat:hover {
+    box-shadow: 0 11px 30px rgba(17, 12, 38, 0.035);
+    transform: translateY(-0px);
+    background: #F5EBF5;
+}
+
+/* Active */
+.chipActive {
+    background: #fff;
+    box-shadow: 0 12px 36px rgba(17, 12, 38, 0.04);
+}
+
+.chipActive .chipLabel,
+.chipActive .caratLabel {
+    color: var(--brand-purple);
+}
+
+/* Row-level hover: update ring color usage — uses var(--ring-color) */
+.optionRow:hover .chip .chipInner::before,
+.optionRow:focus-within .chip .chipInner::before,
+.optionRow:hover .carat .chipInner::before,
+.optionRow:focus-within .carat .chipInner::before {
+    border-color: rgba(165, 78, 168, 0.72);
+    transition: border-color 180ms ease;
+}
+
+.optionRow:hover .chipLabel,
+.optionRow:focus-within .chipLabel,
+.optionRow:hover .caratLabel,
+.optionRow:focus-within .caratLabel {
+    color: var(--brand-purple);
+    transition: color 180ms ease;
+}
+
+/* shape chips */
+.shapeChip {
+    --chip-size: 50px;
+    width: var(--chip-size);
+    height: var(--chip-size);
+    border-radius: 14px;
+    box-shadow: 0 10px 28px rgba(17, 12, 38, 0.03);
+}
+
+.shapeChip .chipInner::before,
+.shapeChip .shapeInner::before {
+    display: none !important;
+}
+
+.shapeInner {
+    width: 50px;
+    height: 50px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #fff;
+    transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.shapeIcon {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    transition: filter 180ms ease, opacity 180ms ease;
+}
+
+.shapeChip:hover .shapeIcon {
+    filter: saturate(120%) hue-rotate(230deg) brightness(0.95);
+}
+
+/* Metal ring colors for the chipInner pseudo-ring — kept as helpers but no longer
+   force the inner fill; they set the default ring color only. JS can set --ring-color
+   and --chip-fill inline to override per instance. */
+.chip[data-metal="14k_yellow"] .chipInner::before {
+    --ring-color: #D5AB4F;
+    /* warm yellow gold */
+}
+
+.chip[data-metal="14k_white"] .chipInner::before {
+    --ring-color: #D9D9D9;
+    /* white gold / silver hint */
+}
+
+.chip[data-metal="14k_rose"] .chipInner::before {
+    --ring-color: #EAD0D0;
+    /* rose gold pale pink */
+}
+
+.chip[data-metal="18k"] .chipInner::before {
+    --ring-color: #CFA84A;
+    /* richer 18K yellow */
+}
+
+.chip[data-metal="pt"] .chipInner::before {
+    --ring-color: #CBD5DB;
+    /* platinum (subtle cool grey) */
+}
+
+/* Fallback / default (keeps previous fallback) */
+.chip[data-metal="default"] .chipInner::before,
+.chip:not([data-metal]) .chipInner::before {
+    --ring-color: #D9D9D9;
+}
+
+/* Make the ring more visible on hover/focus for each chip */
+.chip:hover .chipInner::before,
+.chip:focus-visible .chipInner::before {
+    border-color: var(--ring-color);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+/* When a chip is active, make the ring thicker and the label colored */
+.chipActive .chipInner::before {
+    border-width: 4px;
+    /* slightly thicker ring when active */
+    border-color: var(--ring-color);
+    transition: border-width 120ms ease, border-color 120ms ease;
+}
+
+.chipActive .chipLabel,
+.chipActive .caratLabel {
+    color: var(--brand-purple);
+    /* consistent active label color */
+    font-weight: 600;
+}
+
+/* If you want metal-specific label color as well (optional) */
+.chip[data-metal="14k_yellow"].chipActive .chipLabel {
+    color: #D5AB4F;
+}
+
+.chip[data-metal="14k_white"].chipActive .chipLabel {
+    color: #9b9b9b;
+}
+
+.chip[data-metal="14k_rose"].chipActive .chipLabel {
+    color: #e4b4b4;
+}
+
+.chip[data-metal="18k"].chipActive .chipLabel {
+    color: #CFA84A;
+}
+
+.chip[data-metal="pt"].chipActive .chipLabel {
+    color: #8f99a4;
+}
+
+/* Ensure the inner pseudo element is visible (in case other rules override) */
+.chip .chipInner::before {
+    opacity: 1;
+    transition: border-color 140ms ease, border-width 120ms ease, box-shadow 140ms ease;
+}
+
+/* Accessibility: stronger focus ring */
+.chip:focus-visible,
+.chip:active {
+    outline: none;
+    box-shadow: 0 8px 28px rgba(165, 78, 168, 0.06);
+}
+
+/* responsive */
+@media (max-width:980px) {
+    .title {
+        font-size: 20px;
+    }
+
+    .label,
+    .selectedLabel {
+        font-size: 16px;
+    }
+
+    .chip {
+        --chip-size: 56px;
+        --inner-circle-size: 36px;
+    }
+
+    .carat {
+        --chip-size: 56px;
+    }
+
+    .chipLabel {
+        font-size: 13px;
+    }
+
+    .caratLabel {
+        font-size: 16px;
+    }
+
+    .shapeInner {
+        width: 48px;
+        height: 48px;
+    }
+
+    .shapeIcon {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (max-width:480px) {
+    .chip {
+        --chip-size: 52px;
+        --inner-circle-size: 34px;
+        border-radius: 12px;
+    }
+
+    .carat {
+        --chip-size: 52px;
+        border-radius: 12px;
+    }
+
+    .chipLabel {
+        font-size: 12.5px;
+    }
+
+    .caratLabel {
+        font-size: 14px;
+    }
+
+    .shapeInner {
+        width: 44px;
+        height: 44px;
+    }
+
+    .shapeIcon {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (hover:none) {
+
+    .chip:hover,
+    .shapeChip:hover,
+    .carat:hover {
+        background: #fff;
+        box-shadow: 0 10px 28px rgba(17, 12, 38, 0.03);
+    }
+}
+
+/* Tab selector */
+.TabSelector {
+    position: relative;
+    margin-top: 8px;
+    display: block;
+    padding: 6px;
+}
+
+.TabOptionsContainer {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px;
+    box-shadow: 0 10px 28px rgba(17, 12, 38, 0.03);
+}
+
+.TabOption {
+    position: relative;
+    background: transparent;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.7);
+    transition: color 140ms ease, background 140ms ease, box-shadow 140ms ease;
+    outline: none;
+}
+
+.TabOption.active,
+.TabOption[aria-selected="true"] {
+    color: var(--brand-purple);
+}
+
+.indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 0;
+    width: 0;
+    border-radius: 999px;
+    background: rgba(165, 78, 168, 0.10);
+    box-shadow: 0 8px 30px rgba(165, 78, 168, 0.08);
+    transition: left 180ms cubic-bezier(.2, .9, .2, 1), top 180ms cubic-bezier(.2, .9, .2, 1), width 180ms cubic-bezier(.2, .9, .2, 1), height 180ms cubic-bezier(.2, .9, .2, 1);
+    pointer-events: none;
+    z-index: 0;
+}
+
+.TabOptionsContainer .TabOption {
+    z-index: 1;
+}
+
+.TabOption:focus-visible {
+    box-shadow: 0 0 0 4px rgba(165, 78, 168, 0.08);
+}
+
+/* Buttons + price */
+.panel .button {
+    height: 44px;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 0 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel .button.left {
+    background: #fff !important;
+    color: var(--brand-purple) !important;
+    border: 1px solid rgba(165, 78, 168, 0.14) !important;
+}
+
+.panel .button.right {
+    background: var(--brand-purple) !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+@media (max-width:520px) {
+    .panel .button {
+        width: 100% !important;
+    }
+}
+
+/* ---------------------------
+   Dynamic features (Free Shipping / Free Returns)
+   --------------------------- */
+
+.featuresHeading {
+    font-size: 20px;
+    font-weight: 400;
+    color: 666666;
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+/* features list */
+.featuresList {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* baseline for feature rows */
+.featureItem {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 6px 0;
+    cursor: default;
+}
+
+/* variables used by icons */
+.featureIcon {
+    --feature-stroke: #8a8a8a;
+    /* default stroke (muted) */
+    --feature-fill: transparent;
+    /* default fill */
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: transparent;
+    box-shadow: none;
+    flex: 0 0 36px;
+    transition: background 180ms ease, box-shadow 180ms ease, transform 150ms ease;
+}
+
+.featureIcon svg,
+.featureIcon svg * {
+    stroke: var(--feature-stroke);
+    fill: var(--feature-fill);
+    transition: stroke 160ms ease, fill 160ms ease, opacity 120ms ease;
+}
+
+.featureContent {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.featureTitle {
+    font-weight: 600;
+    font-size: 15px;
+    color: #6f6f6f;
+    margin: 0;
+}
+
+.featureDesc {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0;
+    line-height: 1.3;
+}
+
+.featuresList::before {
+    content: "";
+    display: block;
+    height: 1px;
+    background: #f0eef2;
+    margin-bottom: 8px;
+}
+
+/* ONLY the first two items in featuresList get the colorful icons & title by default.
+   This keeps other feature rows (like the shipping-by-date) neutral. */
+.featuresList .featureItem:nth-child(1) .featureIcon,
+.featuresList .featureItem:nth-child(2) .featureIcon {
+    --feature-stroke: var(--brand-purple);
+    --feature-fill: rgba(165, 78, 168, 0.08);
+    background: rgba(165, 78, 168, 0.04);
+    box-shadow: 0 8px 30px rgba(165, 78, 168, 0.04);
+}
+
+.featuresList .featureItem:nth-child(1) .featureTitle,
+.featuresList .featureItem:nth-child(2) .featureTitle {
+    color: var(--Black_Color);
+}
+
+/* hover / focus lift for those two colorful rows */
+.featuresList .featureItem:nth-child(1):hover .featureIcon,
+.featuresList .featureItem:nth-child(1):focus-within .featureIcon,
+.featuresList .featureItem:nth-child(2):hover .featureIcon,
+.featuresList .featureItem:nth-child(2):focus-within .featureIcon {
+    transform: translateY(-0px);
+    box-shadow: 0 14px 34px rgba(165, 78, 168, 0.06);
+    --feature-fill: rgba(165, 78, 168, 0.12);
+}
+
+/* keep other features neutral but focusable */
+.featureItem:focus-within {
+    outline: none;
+
+}
+
+/* --- Ring select + custom select area --- */
+.ringSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 10px 14px;
+    font-size: 15px;
+    border-radius: 8px;
+
+    background: #fff;
+    min-width: 160px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(17, 12, 38, 0.02);
+}
+
+.ringHelpLink {
+    color: rgba(0, 0, 0, 0.75);
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.ringHelpLink:hover {
+    text-decoration: underline;
+}
+
+.priceRow {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    border-top: 1px solid #f1eef2;
+    padding-top: 18px;
+    flex-wrap: wrap;
+}
+
+.priceLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.priceOriginal {
+    color: #9a9a9a;
+    text-decoration: line-through;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.priceCurrent {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+}
+
+.settingPriceNote {
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.7);
+    margin-left: 4px;
+    font-weight: 500;
+}
+
+.discountBadge {
+    display: inline-block;
+    margin-left: 10px;
+    background: #dff7e6;
+    color: #0a8f44;
+    padding: 6px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.priceNote {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+    margin-top: 4px;
+}
+
+.priceActions {
+    display: flex;
+    gap: 12px;
+    margin-left: auto;
+    width: 50%;
+}
+
+.priceActions button {
+    width: 50%;
+    box-shadow: 0 8px 28px rgba(165, 78, 168, 0.06);
+}
+
+@media (max-width:640px) {
+    .priceRow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .priceActions {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .priceActions button {
+        width: 100%;
+    }
+}
+
+/* ring select chevron */
+.ringSelectWrap {
+    position: relative;
+    min-width: 180px;
+    display: inline-block;
+}
+
+.ringSelect {
+    -webkit-appearance: none;
+    appearance: none;
+    border: 1px solid #ece3ee;
+    padding: 10px 36px 10px 14px;
+    border-radius: 8px;
+    background: #fff;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(17, 12, 38, 0.02);
+}
+
+.ringSelectWrap::after {
+    content: "";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    transform: translateY(-50%);
+    background-image: url("data:image/svg+xml;utf8,<svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M6 9l6 6 6-6' stroke='%239b9b9b' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    pointer-events: none;
+}
+
+.ringSelect option[disabled] {
+    color: #8a8a8a;
+}
+
+/* custom select */
+.customSelectWrap {
+    position: relative;
+    min-width: 160px;
+    display: inline-block;
+    margin-left: 8px;
+    z-index: 40;
+}
+
+.customSelectButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    width: 160px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: #fff;
+    border: 1px solid rgba(165, 78, 168, 0.12);
+    box-shadow: 0 18px 36px rgba(165, 78, 168, 0.04);
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.customSelectLabel {
+    display: inline-block;
+}
+
+.customSelectChevron {
+    font-size: 16px;
+    color: #2b2b2b;
+    opacity: 0.9;
+    margin-left: 6px;
+}
+
+.customSelectList {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    min-width: 220px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px 8px;
+    box-shadow: 0 18px 50px rgba(17, 12, 38, 0.08);
+    list-style: none;
+    margin: 0;
+    max-height: 320px;
+    overflow: auto;
+}
+
+.customSelectItem {
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin: 4px 4px;
+    cursor: pointer;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.7);
+    transition: background 120ms ease, color 120ms ease;
+}
+
+.customSelectItem:hover,
+.customSelectItem[aria-selected="true"] {
+    background: rgba(165, 78, 168, 0.06);
+    color: var(--brand-purple);
+}
+
+.customSelectItem:first-child {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width:520px) {
+    .customSelectButton {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .customSelectList {
+        min-width: 100%;
+    }
+}
+
+/* subtitle small */
+.subtitleSmall {
+    color: var(--brand-purple, #a54ea8);
+    margin: 6px 0 0 0;
+    font-size: 16px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+}
+
+.headerRow+.subtitleSmall {
+    margin-top: 6px;
+}
+
+/* diamond type row */
+.diamondTypeRow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.TabSelector {
+    margin-top: 10px;
+}
+
+/* ACCORDION */
+.accordion {
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+    padding-top: 12px;
+}
+
+.accItem {
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+    display: block;
+}
+
+.accHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgba(0, 0, 0, 0.85);
+    background: transparent;
+    padding: 6px 0;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.accToggle {
+    font-size: 20px;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.6);
+    min-width: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.accBodyWrap {
+    overflow: hidden;
+    transition: max-height 300ms cubic-bezier(.2, .9, .3, 1), opacity 220ms ease;
+    max-height: 0;
+    opacity: 0;
+    will-change: max-height, opacity;
+}
+
+.accBodyWrapOpen {
+    max-height: 800px;
+    opacity: 1;
+}
+
+.accBody {
+    margin-top: 12px;
+    background: rgba(165, 78, 168, 0.06);
+    padding: 16px;
+    border-radius: 6px;
+    color: rgba(0, 0, 0, 0.87);
+    line-height: 1.45;
+}
+
+.accIcon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    font-weight: 600;
+}
+
+@media (max-width:640px) {
+    .accHeader {
+        font-size: 18px;
+    }
+
+    .accBody {
+        font-size: 14px;
+        padding: 14px;
+    }
+}
+
+/* End of file */
+/* ===== Smaller metal chips override — paste at end of stylesheet =====
+   Reduces tile & inner circle sizes, keeps white tile, no ring, colored fill,
+   dark centered label, subtle shadow. High specificity to ensure this wins
+   but uses --chip-fill rather than forcing background with !important.
+========================================================================= */
+
+.panel .chips .chip {
+    --chip-size-override: 52px !important;
+    /* overall tile size */
+    width: var(--chip-size-override) !important;
+    height: var(--chip-size-override) !important;
+    border-radius: 14px !important;
+    /* rounded square tile */
+    padding: 0 !important;
+    background: #fff !important;
+    border: none !important;
+    box-shadow: 0 18px 44px rgba(17, 12, 38, 0.06) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    transition: box-shadow 160ms ease, transform 120ms ease !important;
+}
+
+.panel .chips .chip .chipInner {
+    --inner-circle-size-override: 40px !important;
+    /* inner circle diameter */
+    width: var(--inner-circle-size-override) !important;
+    height: var(--inner-circle-size-override) !important;
+    border-radius: 50% !important;
+    display: grid !important;
+    place-items: center !important;
+    /* now driven by --chip-fill variable (fallback transparent) */
+    background: var(--chip-fill, transparent) !important;
+    box-shadow: 0 6px 18px rgba(17, 12, 38, 0.05) !important;
+    margin: 0 !important;
+    position: relative !important;
+    z-index: 1 !important;
+    overflow: visible !important;
+}
+
+/* Strongly enforce per-metal inner fill colors — map to the variable instead of forcing background */
+/* This sets the default --chip-fill value for that selector, allowing inline styles or JS to override */
+.panel .chips .chip[data-metal="14k_yellow"] .chipInner {
+    --chip-fill: #ECD9B3;
+}
+
+.panel .chips .chip[data-metal="14k_white"] .chipInner {
+    --chip-fill: #E9E9E9;
+}
+
+.panel .chips .chip[data-metal="14k_rose"] .chipInner {
+    --chip-fill: #F2D7D2;
+}
+
+/* Force 18k inner fill — lower-case selector; assigns variable (not background) */
+.panel .chips .chip[data-metal="18k"] .chipInner,
+.panel .chips button[data-metal="18k"] .chipInner {
+    --chip-fill: #E8D5B0;
+    box-shadow: 0 6px 18px rgba(17, 12, 38, 0.05) !important;
+}
+
+/* safety: keep a direct fallback for any usage that might read background-color directly */
+.panel .chips button[data-metal="18k"]>.chipInner,
+.panel .chips .chip[data-metal="18k"]>.chipInner {
+    /* prefer variable, but keep a fallback background color (non-!important) */
+    background-color: var(--chip-fill, #E8D5B0);
+}
+
+/* Fix for 18k inner fill (lowercase key used in React) - sets variable */
+.panel .chips .chip[data-metal="18k"] .chipInner {
+    --chip-fill: #E6C2A2;
+}
+
+/* optional: also cover possible uppercase variant if needed */
+.panel .chips .chip[data-metal="18K"] .chipInner {
+    --chip-fill: #E6C2A2;
+}
+
+.panel .chips .chip[data-metal="pt"] .chipInner {
+    --chip-fill: #F6DCDC;
+}
+
+.panel .chips .chip:not([data-metal]) .chipInner,
+.panel .chips .chip[data-metal="default"] .chipInner {
+    --chip-fill: #E9E9E9;
+}
+
+/* Label: dark, slightly bolder, centered in the inner circle */
+.panel .chips .chip .chipLabel,
+.panel .chips .chip .chipInner .chipLabel,
+.chipLabel {
+    color: #000000 !important;
+    font-weight: 500 !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    z-index: 2 !important;
+    user-select: none !important;
+    text-align: center !important;
+}
+
+/* Hover: only stronger shadow, no vertical translate */
+.panel .chips .chip:hover,
+.panel .chips .chip:focus-visible {
+    transform: translateY(0) !important;
+    box-shadow: 0 26px 72px rgba(17, 12, 38, 0.07) !important;
+}
+
+/* Selected: slightly stronger inner circle shadow */
+.panel .chips .chipActive .chipInner {
+    box-shadow: 0 10px 26px rgba(17, 12, 38, 0.08) !important;
+}
+
+/* Slightly tighter spacing */
+.panel .chips {
+    gap: 12px !important;
+    align-items: center !important;
+}
+
+/* Responsive: keep proportions */
+@media (max-width: 980px) {
+    .panel .chips .chip {
+        --chip-size-override: 56px !important;
+        width: var(--chip-size-override) !important;
+        height: var(--chip-size-override) !important;
+        border-radius: 12px !important;
+    }
+
+    .panel .chips .chip .chipInner {
+        --inner-circle-size-override: 36px !important;
+        width: var(--inner-circle-size-override) !important;
+        height: var(--inner-circle-size-override) !important;
+    }
+
+    .panel .chips .chip .chipLabel {
+        font-size: 12px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .panel .chips .chip {
+        --chip-size-override: 48px !important;
+        width: var(--chip-size-override) !important;
+        height: var(--chip-size-override) !important;
+        border-radius: 10px !important;
+    }
+
+    .panel .chips .chip .chipInner {
+        --inner-circle-size-override: 30px !important;
+        width: var(--inner-circle-size-override) !important;
+        height: var(--inner-circle-size-override) !important;
+    }
+
+    .panel .chips .chip .chipLabel {
+        font-size: 11px !important;
+    }
+}

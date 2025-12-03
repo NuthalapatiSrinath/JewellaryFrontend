@@ -1,0 +1,105 @@
+/* Card shell */
+.card {
+    background: var(--White_Color);
+    border-radius: 10px;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    transition: box-shadow 0.25s ease, transform 0.2s ease;
+    font-family: var(--Font_Family);
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+}
+
+/* Media */
+.mediaWrap {
+    aspect-ratio: 16 / 9;
+    background: var(--Utility_Color1);
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Content */
+.body {
+    padding: 16px 16px 18px;
+}
+
+.title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--Black_Color);
+    margin-bottom: 6px;
+}
+
+.meta {
+    font-size: var(--Font_Size_2);
+    color: rgba(0, 0, 0, 0.55);
+    margin-bottom: 12px;
+}
+
+.excerpt {
+    font-size: var(--Font_Size_3);
+    color: rgba(0, 0, 0, 0.78);
+    line-height: 1.7;
+}
+
+/* collapsible section */
+.more {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 320ms ease;
+}
+
+.more.open {
+    /* big enough to fit typical paragraphs */
+    max-height: 360px;
+    margin-top: 8px;
+}
+
+.more p {
+    font-size: var(--Font_Size_3);
+    color: rgba(0, 0, 0, 0.78);
+    line-height: 1.7;
+}
+
+/* Read more link-like button */
+.readMore {
+    appearance: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    margin-top: 12px;
+    font-size: var(--Font_Size_3);
+    color: var(--Info_Color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.readMore:hover {
+    color: var(--Primary_Color);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .body {
+        padding: 14px;
+    }
+
+    .title {
+        font-size: 1rem;
+    }
+
+    .excerpt,
+    .more p {
+        font-size: var(--Font_Size_2);
+    }
+}

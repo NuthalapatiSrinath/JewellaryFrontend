@@ -1,0 +1,116 @@
+.wrap {
+    display: grid;
+    gap: 6px;
+    font-family: var(--Font_Family);
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: rgba(0, 0, 0, 0.60);
+}
+
+/* shell to host icons and field */
+.inputShell {
+    position: relative;
+    width: var(--hai-width);
+}
+
+/* base field */
+.field {
+    width: 100%;
+    height: var(--hai-height);
+    padding: 0 14px;
+    padding-left: calc(14px + 24px + 8px);
+    /* room if left icon appears */
+    border-radius: var(--hai-radius);
+    border: 1px solid var(--hai-border);
+    outline: none;
+    background: var(--hai-bg);
+    color: var(--hai-text);
+    font-size: var(--hai-font-size);
+    font-family: var(--Font_Family);
+    transition: box-shadow .18s ease, border-color .18s ease, background .18s ease;
+    -webkit-appearance: none;
+}
+
+.field::placeholder {
+    color: rgba(0, 0, 0, 0.40);
+}
+
+/* when no left icon, restore default left padding */
+.inputShell :where(input, textarea):not(:placeholder-shown) {}
+
+.inputShell input:not(:has(+ .left)),
+.inputShell textarea:not(:has(+ .left)) {}
+
+.icon.left~.field,
+.inputShell .field:has(+ .right) {}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    line-height: 0;
+    color: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.left {
+    left: 12px;
+}
+
+.right {
+    right: 12px;
+}
+
+/* focus */
+.field:focus {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--Primary_Color) 20%, transparent);
+    border-color: color-mix(in srgb, var(--Primary_Color) 38%, var(--White_Color));
+    background: color-mix(in srgb, var(--Primary_Color) 5%, var(--Background_Color));
+}
+
+/* textarea specifics */
+.textarea {
+    min-height: 96px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    resize: vertical;
+}
+
+/* helper/error */
+.helper {
+    margin-top: 4px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.helperError {
+    color: var(--Error_Color);
+}
+
+/* error border */
+.error {
+    border-color: var(--hai-border-error) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--Error_Color) 20%, transparent);
+}
+
+/* disabled */
+.field:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+/* compact on small screens */
+@media (max-width: 600px) {
+    .field {
+        height: 46px;
+        font-size: 15px;
+    }
+
+    .textarea {
+        min-height: 84px;
+    }
+}

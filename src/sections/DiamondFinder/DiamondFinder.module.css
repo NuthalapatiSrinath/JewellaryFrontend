@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --primary: #993399;
+    --muted: rgba(0, 0, 0, 0.65);
+    --pill: #f5ebf5;
+    --white: #fff;
+    --font: 'Montserrat', sans-serif;
+}
+
+/* page */
+.page {
+    font-family: var(--font);
+    background: #faf7fb;
+    padding: 36px 20px;
+}
+
+/* header */
+.header {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.title {
+    color: var(--primary);
+    font-weight: 600;
+    margin: 6px 0;
+    font-size: 28px;
+}
+
+.lead {
+    color: rgba(0, 0, 0, 0.45);
+    max-width: 900px;
+    margin: 6px auto 14px;
+    font-size: 14px;
+}
+
+/* top row: tabs centered + controls to the right */
+.topRow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+}
+
+/* right-side top controls (placed visually next to tabs) */
+.topControlsRight {
+    margin-left: 18px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* small elements */
+.viewBtn {
+    background: var(--white);
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(153, 51, 153, 0.08);
+    box-shadow: 0 6px 18px rgba(153, 51, 153, 0.04);
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.smallDd {
+    width: 140px;
+}
+
+.advBtn {
+    background: var(--pill);
+    border-radius: 999px;
+    padding: 8px 12px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* filters area wrapper */
+.filtersSection {
+    max-width: 1200px;
+    margin: 12px auto 40px;
+}
+
+/* two-column filters grid */
+.filtersGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* column container */
+.col {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* individual block */
+.block {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 8px 24px rgba(17, 12, 38, 0.04);
+}
+
+/* header inside block */
+.blockHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.blockTitle {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+}
+
+.info {
+    color: #b19;
+    font-size: 12px;
+}
+
+/* shapes grid */
+.shapeGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+}
+
+.shapeBtn {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 6px 16px rgba(17, 12, 38, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    min-height: 64px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.shapeImg {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.shapeLabel {
+    text-transform: capitalize;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.65);
+}
+
+/* small two-values row (e.g., carat or price labels) */
+.rowBetween {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.caratLabel {
+    font-size: 13px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.pill {
+    display: inline-block;
+    background: var(--pill);
+    color: var(--primary);
+    padding: 6px 10px;
+    border-radius: 16px;
+    margin-left: 8px;
+    font-weight: 600;
+}
+
+/* slider wrapper keeps spacing */
+.sliderWrap {
+    margin-top: 6px;
+}
+
+/* clarity block uses TickSlider — give it room */
+.block .TickSlider,
+.block .RangeSlider {
+    width: 100%;
+}
+
+/* cut labels row */
+.cutLabels {
+    display: flex;
+    gap: 18px;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 4px 6px;
+}
+
+.cutLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+/* price pill local style */
+.pricePill {
+    background: var(--pill);
+    padding: 8px 14px;
+    border-radius: 20px;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* responsiveness */
+@media (max-width: 980px) {
+    .shapeGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .filtersGrid {
+        gap: 18px;
+        grid-template-columns: 1fr;
+    }
+
+    .topRow {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* shape active state */
+.shapeActive {
+    background: #f5ebf5;
+    /* pale pink pill */
+    border-color: rgba(153, 51, 153, 0.12);
+    box-shadow: 0 8px 24px rgba(153, 51, 153, 0.04);
+    transform: translateY(-2px);
+}
+
+/* ensure .shapeBtn has an accessible focus state */
+.shapeBtn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 6px rgba(153, 51, 153, 0.06);
+    border-radius: 10px;
+}
+
+/* price pill (re-usable) */
+.pricePill {
+    background: #f5ebf5;
+    /* same as carat pill */
+    padding: 10px 16px;
+    border-radius: 20px;
+    color: #993399;
+    font-weight: 700;
+    box-shadow: 0 6px 18px rgba(153, 51, 153, 0.04);
+}
+
+/* smaller variations if needed */
+.priceLeft {
+    justify-self: start;
+}
+
+.priceRight {
+    justify-self: end;
+}
+
+/* keep spacing consistent with carat pill */
+.pill {
+    background: #f5ebf5;
+    padding: 6px 10px;
+    border-radius: 16px;
+    color: #993399;
+    display: inline-block;
+    font-weight: 600;
+}
+
+/* ===== bottom controls: added styles ===== */
+.bottomControls {
+    max-width: 1200px;
+    margin: 10px auto 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px;
+}
+
+.bottomLeft {
+    display: flex;
+    align-items: center;
+}
+
+/* fastShipping checkbox label */
+.fastShipping {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--white);
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(17, 12, 38, 0.04);
+    cursor: pointer;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.fastShipping input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+}
+
+/* bottom right controls (reset + small dropdowns + advanced) */
+.bottomRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* reset button */
+.resetBtn {
+    background: var(--white);
+    border-radius: 999px;
+    padding: 8px 12px;
+    border: 1px solid rgba(153, 51, 153, 0.08);
+    box-shadow: 0 8px 20px rgba(153, 51, 153, 0.03);
+    color: var(--primary);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* keep small dropdown sizing consistent (Dropdown component will receive this classname) */
+.smallDd {
+    width: 140px;
+}
+
+/* advBtn exists above; ensure consistent hover */
+.advBtn {
+    background: var(--pill);
+    border-radius: 999px;
+    padding: 8px 12px;
+    color: var(--primary);
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+}
+
+/* responsive tweaks for bottom controls */
+@media (max-width: 720px) {
+    .bottomControls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .bottomRight {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .smallDd {
+        width: 48%;
+    }
+
+    .resetBtn {
+        width: 48%;
+    }
+
+    .advBtn {
+        width: 48%;
+        text-align: center;
+    }
+}
+/* --- products section placed below features --- */
+.productsSection {
+  
+    margin: 18px auto;
+    padding: 6px 8px;
+}
+
+.productsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.productsTitle {
+    font-size: 18px;
+    margin: 0;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.productsCount {
+    margin: 0;
+    color: rgba(0, 0, 0, 0.55);
+    font-size: 13px;
+}
+
+/* 4 columns grid for product cards */
+.productGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    align-items: start;
+    padding-bottom: 16px;
+}
+
+/* If ProductCardDetails has a fixed height, the grid will align nicely.
+   If your card overflow is an issue, consider adding min-height to the card. */
+
+/* responsive: 2 columns on medium screens, 1 column on small */
+@media (max-width: 1100px) {
+    .productGrid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .productGrid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 560px) {
+    .productGrid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}

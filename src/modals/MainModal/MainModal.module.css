@@ -1,0 +1,19 @@
+/* MainModal.module.css */
+.MainModal {
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  /* CHANGE: center vertically instead of flex-start */
+  align-items: center;
+  /* REMOVE or REDUCE: padding-top isn't needed if centered */
+  padding-top: 0px;
+  z-index: 99999;
+
+  /* Ensure scroll works if modal is taller than screen */
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}

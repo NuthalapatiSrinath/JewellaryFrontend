@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+
+:root {
+    --primary: #993399;
+    --muted: rgba(0, 0, 0, 0.6);
+    --bg: #fff;
+    --page-pad: 28px;
+    --card-gap: 22px;
+    --font: 'Montserrat', sans-serif;
+}
+
+/* --- base layout from your original file --- */
+.page {
+    font-family: var(--font);
+    padding: 36px;
+    background: #faf7fb;
+    min-height: 100vh;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.title {
+    color: var(--primary);
+    margin: 8px 0 6px 0;
+    font-weight: 600;
+}
+
+.lead {
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 820px;
+    margin: 6px auto 18px auto;
+}
+
+/* top controls row: tabs + view products */
+.tabRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 12px;
+}
+
+.viewProductsBtn {
+    background: var(--bg);
+    border-radius: 999px;
+    padding: 8px 14px;
+    border: 1px solid rgba(153, 51, 153, 0.08);
+    box-shadow: 0 6px 18px rgba(153, 51, 153, 0.04);
+    color: var(--primary);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* layout: filters left, grid right */
+.content {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+/* filters column */
+.filters {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 8px 24px rgba(17, 12, 38, 0.04);
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.filterBlock {
+    margin-bottom: 18px;
+}
+
+.filterTitle {
+    font-size: 14px;
+    color: var(--primary);
+    margin: 0 0 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.help {
+    color: #b19;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* product grid */
+.gridWrap {
+    padding-top: 4px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--card-gap);
+}
+
+/* empty state */
+.empty {
+    color: var(--muted);
+    font-size: 14px;
+    padding: 24px;
+}
+
+/* --- new controls row styles (last row) --- */
+.controlsRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 22px 6px 8px 6px;
+    gap: 12px;
+    width: 100%;
+}
+
+/* left side */
+.controlsLeft {
+    display: flex;
+    align-items: center;
+}
+
+/* custom checkbox visual */
+.checkboxWrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    padding: 6px 8px;
+    border-radius: 8px;
+}
+
+.checkboxWrap input[type="checkbox"] {
+    /* hide native box but keep accessible */
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+.checkboxBox {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid rgba(17, 12, 38, 0.08);
+    background: white;
+    box-shadow: 0 4px 12px rgba(153, 51, 153, 0.03);
+    display: inline-block;
+    transition: background 0.18s ease, transform 0.12s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* indicate checked state using sibling selector */
+.checkboxWrap input[type="checkbox"]:checked+.checkboxBox {
+    background: linear-gradient(180deg, rgba(153, 51, 153, 0.12), rgba(153, 51, 153, 0.06));
+    border: 1px solid rgba(153, 51, 153, 0.18);
+    transform: translateY(-1px);
+}
+
+/* label text */
+.checkboxLabel {
+    color: #333;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+/* right side: pills & dropdowns */
+.controlsRight {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Reset pill/button */
+.resetBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(153, 51, 153, 0.06), rgba(255, 255, 255, 0.8));
+    border: none;
+    box-shadow: 0 10px 18px rgba(153, 51, 153, 0.06);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary);
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.resetBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 22px rgba(153, 51, 153, 0.08);
+}
+
+.resetText {
+    font-size: 14px;
+}
+
+/* pill group to hold Dropdown + Advanced button */
+.pillGroup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* style the dropdown so it looks like a pill — the Dropdown component accepts className */
+.pillDropdown {
+    --custom_color: #f6eaf5;
+    /* fallback if you pass bgColor */
+    background: linear-gradient(180deg, rgba(249, 238, 252, 0.9), rgba(245, 240, 247, 0.9));
+    border-radius: 999px;
+    padding: 8px 12px;
+    display: inline-flex;
+    align-items: center;
+    min-width: 110px;
+    box-shadow: 0 10px 18px rgba(153, 51, 153, 0.04);
+}
+
+/* advanced filters pill */
+.advancedBtn {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #f8eef7, #fff);
+    border: 1px solid rgba(153, 51, 153, 0.06);
+    box-shadow: 0 10px 18px rgba(153, 51, 153, 0.04);
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--primary);
+    transition: transform 0.12s ease;
+}
+
+.advancedBtn:hover {
+    transform: translateY(-3px);
+}
+
+.advancedText {
+    font-size: 14px;
+}
+
+/* ensure dropdown items when open look consistent */
+.Dropdown {
+    /* If your Dropdown CSS module uses .Dropdown, these will combine;
+       keep here for safety if you want the pill look when closed */
+}
+
+/* responsive adjustments */
+@media (max-width: 980px) {
+    .content {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        position: relative;
+        top: 0;
+        margin-bottom: 14px;
+    }
+
+    .controlsRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .controlsRight {
+        justify-content: space-between;
+    }
+
+    .pillGroup {
+        justify-content: flex-end;
+        gap: 8px;
+    }
+}

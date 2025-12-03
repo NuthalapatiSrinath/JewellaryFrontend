@@ -1,0 +1,136 @@
+/* Full-bleed section */
+.section {
+    padding: 0;
+    background: #000;
+    font-family: var(--Font_Family, "Montserrat", sans-serif);
+}
+
+.container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Viewport */
+.viewport {
+    position: relative;
+    overflow: hidden;
+    height: 78vh;
+    /* adjust to taste */
+    min-height: 420px;
+}
+
+/* Slides track */
+.track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Slide */
+.slide {
+    min-width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+/* Subtle left-to-right gradient for copy legibility */
+.gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .18) 40%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+}
+
+/* Content: bottom-left lockup */
+.content {
+    position: absolute;
+    left: 6%;
+    bottom: 12%;
+    z-index: 2;
+    color: #fff;
+    max-width: 520px;
+}
+
+.title {
+    font-weight: 700;
+    letter-spacing: .2px;
+    font-size: clamp(26px, 4.2vw, 42px);
+    margin: 0 0 10px 0;
+}
+
+.underline {
+    width: 120px;
+    height: 2px;
+    background: rgba(255, 255, 255, .92);
+    margin: 0 0 14px 0;
+}
+
+.subtitle {
+    font-size: clamp(14px, 1.6vw, 18px);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .9);
+    max-width: 420px;
+    margin: 0;
+}
+
+/* Dots (keep if you like; remove the block to hide) */
+.indicators {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 18px;
+    display: flex;
+    gap: 8px;
+    z-index: 3;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .5);
+    border: none;
+    cursor: pointer;
+}
+
+.active {
+    background: rgba(255, 255, 255, .95);
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+    .viewport {
+        height: 68vh;
+    }
+
+    .content {
+        left: 6%;
+        bottom: 10%;
+        max-width: 420px;
+    }
+
+    .underline {
+        width: 90px;
+    }
+}
+
+@media (max-width: 600px) {
+    .viewport {
+        height: 56vh;
+        min-height: 360px;
+    }
+
+    .content {
+        left: 5%;
+        bottom: 8%;
+        max-width: 85vw;
+    }
+
+    .underline {
+        width: 72px;
+    }
+}

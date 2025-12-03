@@ -1,0 +1,340 @@
+:root {
+    --muted: #6b7280;
+    --text: #1f2937;
+    --accent: #f3b8b0;
+    /* soft coral */
+    --accent-strong: #ffb7a5;
+    --track-bg: #ececec;
+    --radius: 10px;
+}
+
+/* card wrapper */
+.advFilterCard {
+    display: flex;
+    gap: 12px;
+    flex-direction: column;
+    padding: 12px 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* header row: label + info */
+.header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 14px;
+    letter-spacing: 0.6px;
+}
+
+/* info icon wrapper */
+.infoWrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.infoBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: transparent;
+    display: inline-grid;
+    place-items: center;
+    cursor: pointer;
+    color: var(--muted);
+    padding: 0;
+}
+
+.infoBtn:hover {
+    color: var(--text);
+    border-color: rgba(0, 0, 0, 0.16);
+}
+
+/* tooltip */
+.tooltip {
+    position: absolute;
+    left: 36px;
+    top: -8px;
+    width: 320px;
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.12);
+    border-radius: 10px;
+    padding: 14px;
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+    transition: opacity 160ms ease, transform 160ms ease;
+    z-index: 60;
+    display: none;
+}
+
+.tooltipVisible {
+    display: block;
+    pointer-events: auto;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tooltipInner {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.tooltipArrow {
+    position: absolute;
+    left: -8px;
+    top: 18px;
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    background: #fff;
+    box-shadow: 0 8px 30px rgba(2, 6, 23, 0.06);
+    border-radius: 2px;
+}
+
+/* body */
+.body {
+    display: block;
+    margin-top: 8px;
+}
+
+/* ------------------ Range Filled ------------------ */
+.rangeFilledWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    user-select: none;
+}
+
+.trackWrap {
+    position: relative;
+    height: 36px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+/* background track */
+.track {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: var(--track-bg);
+    border-radius: 999px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* filled bar */
+.filled {
+    position: absolute;
+    height: 8px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%);
+    border-radius: 999px;
+    top: 50%;
+    transform: translateY(-50%);
+    box-shadow: 0 6px 18px rgba(243, 184, 176, 0.12);
+}
+
+/* invisible native inputs stacked to handle dragging */
+.rangeInput {
+    -webkit-appearance: none;
+    appearance: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: transparent;
+    margin: 0;
+    pointer-events: all;
+}
+
+/* chrome track/thumb reset */
+.rangeInput::-webkit-slider-runnable-track {
+    height: 8px;
+    background: transparent;
+    border: none;
+}
+
+.rangeInput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    border: 6px solid white;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    margin-top: -8px;
+    cursor: grab;
+}
+
+/* ensure the low handle is above high so it is clickable when overlapped */
+.rangeInput.low {
+    z-index: 3;
+}
+
+.rangeInput.high {
+    z-index: 2;
+}
+
+/* decorative circular markers (for appearance identical to screenshots) */
+.handleMarker {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    border: 6px solid white;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10);
+    z-index: 6;
+}
+
+/* values under the track */
+.rangeValues {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.rangeValue {
+    font-family: "Montserrat", sans-serif;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* ------------------ Range Ticks ------------------ */
+.rangeTicksWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.ticksTrack {
+    position: relative;
+    height: 56px;
+    width: 100%;
+    user-select: none;
+}
+
+.ticksBar {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    height: 8px;
+    background: var(--track-bg);
+    border-radius: 999px;
+    top: 32%;
+}
+
+.ticksActive {
+    position: absolute;
+    height: 8px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-strong) 100%);
+    border-radius: 999px;
+    top: 32%;
+    box-shadow: 0 6px 18px rgba(243, 184, 176, 0.12);
+}
+
+/* small tick markers along rail */
+.tickMarker {
+    position: absolute;
+    top: 32%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #e6e6e6;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+/* draggable round handles */
+.tickHandle {
+    position: absolute;
+    top: 32%;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent-strong);
+    border: 6px solid #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    cursor: grab;
+}
+
+/* labels row beneath ticks */
+.ticksLabels {
+    display: flex;
+    width: 100%;
+    margin-top: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tickLabel {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* ------------------ Fancy Select ------------------ */
+.selectWrap {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 720px;
+}
+
+.fancySelect {
+    width: 100%;
+    padding: 16px 44px 16px 16px;
+    border: 2px solid #222;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 16px;
+    color: var(--text);
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+}
+
+.selectArrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+}
+
+/* small helpers/responsive */
+@media (max-width: 720px) {
+    .tooltip {
+        left: 0;
+        top: 36px;
+        width: 260px;
+    }
+
+    .ticksLabels .tickLabel {
+        font-size: 12px;
+    }
+
+    .rangeValue {
+        font-size: 13px;
+    }
+}
