@@ -2,134 +2,212 @@ import React, { useEffect, useState } from "react";
 import styles from "./AddressPage.module.css";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/modalSlice";
-import { useNavigate } from "react-router-dom";
+import {
+  fetchAddresses,
+  addAddress,
+  deleteAddress,
+} from "../../api/addressService";
 
-import CategoryCard from "../../components/CategoryCard/CategoryCard";
-import FooterSection from "../FooterPage/FooterPage";
+const isValidForm = (f) =>
+  f.firstName && f.lastName && f.address && f.city && f.postalCode && f.phone;
 
-// Same recommended cards as Cart
-const RECOMMENDED = [
-  { title: "Bouncy", img: "/images/reco/bouncy.jpg", slug: "bouncy" },
-  { title: "Ball pool", img: "/images/reco/ball-pool.jpg", slug: "ball-pool" },
-  {
-    title: "Bubble Show",
-    img: "/images/reco/bubble-show.png",
-    slug: "bubble-show",
-  },
-  {
-    title: "Balloon shooting",
-    img: "/images/reco/balloon-shooting.jpg",
-    slug: "balloon-shooting",
-  },
-];
-
-export default function AddressPage() {
+export default function AddressPage({ onNext, onLoginRequest, isLoggedIn }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [savedAddresses, setSavedAddresses] = useState([]);
+  const [selectedId, setSelectedId] = useState(null);
+  const [form, setForm] = useState({
+    label: "Home",
+    firstName: "",
+    lastName: "",
+    address: "",
+    city: "",
+    state: "Telangana",
+    postalCode: "",
+    country: "India",
+    phone: "",
+    isDefault: false,
+  });
 
-  const [isLoggedIn, setIsLoggedIn] = useState(
-    !!localStorage.getItem("staticLoggedIn")
-  );
+  const loadAddresses = async () => {
+    try {
+      const data = await fetchAddresses();
+      if (data?.addresses) {
+        setSavedAddresses(data.addresses);
+        // Auto-select first address if none selected
+        if (!selectedId && data.addresses.length > 0) {
+          setSelectedId(data.addresses[0]._id);
+        }
+      }
+    } catch (error) {
+      console.error("Load addresses failed", error);
+    }
+  };
 
   useEffect(() => {
-    const onAuth = () => {
-      localStorage.setItem("staticLoggedIn", "1");
-      setIsLoggedIn(true);
-    };
-    window.addEventListener("auth:success", onAuth);
-    return () => window.removeEventListener("auth:success", onAuth);
-  }, []);
+    if (isLoggedIn) loadAddresses();
+  }, [isLoggedIn]);
 
-  const handleCTA = () => {
-    if (isLoggedIn) navigate("/payment");
-    else dispatch(openModal({ type: "AUTH" }));
+  const handleSaveAddress = async () => {
+    if (!isLoggedIn) {
+      onLoginRequest();
+      return;
+    }
+    if (!isValidForm(form)) {
+      alert("Please fill required fields (*)");
+      return;
+    }
+    try {
+      await addAddress(form);
+      await loadAddresses();
+      setForm({
+        ...form,
+        firstName: "",
+        lastName: "",
+        address: "",
+        phone: "",
+        city: "",
+        postalCode: "",
+      });
+    } catch (error) {
+      console.error("Save address failed", error);
+    }
+  };
+
+  const handleProceed = () => {
+    if (!isLoggedIn) {
+      onLoginRequest();
+    } else if (!selectedId) {
+      alert("Please select an address.");
+    } else {
+      onNext(selectedId); // Pass ID to Host -> Payment Page
+    }
   };
 
   return (
-    <>
-      <div className={styles.wrap}>
-        <div className={styles.grid}>
-          {/* LEFT: form */}
-          <div className={styles.card}>
-            <h3 className={styles.title}>Contact details</h3>
-            <input className={styles.inp} placeholder="Name *" />
-            <input className={styles.inp} placeholder="Mobile Number *" />
-
-            <h3 className={styles.title}>Address details</h3>
-            <div className={styles.row2}>
-              <input className={styles.inp} placeholder="Date *" />
-              <input className={styles.inp} placeholder="Time *" />
+    <div className={styles.wrap}>
+      <div className={styles.grid}>
+        {/* LEFT: Addresses & Form */}
+        <div className={styles.leftCol}>
+          {/* Saved Addresses List */}
+          {savedAddresses.length > 0 && (
+            <div
+              className={styles.savedSection}
+              style={{ marginBottom: "20px" }}
+            >
+              <h3>Select Shipping Address</h3>
+              <div className={styles.addressList}>
+                {savedAddresses.map((addr) => (
+                  <div
+                    key={addr._id}
+                    className={styles.addrCard}
+                    style={{
+                      border:
+                        selectedId === addr._id
+                          ? "2px solid var(--Primary_Color)"
+                          : "1px solid #ddd",
+                      padding: "10px",
+                      margin: "10px 0",
+                      borderRadius: "8px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setSelectedId(addr._id)}
+                  >
+                    <strong>{addr.label}</strong>
+                    <p>
+                      {addr.firstName} {addr.lastName}
+                    </p>
+                    <p>
+                      {addr.address}, {addr.city} - {addr.postalCode}
+                    </p>
+                    <p>Phone: {addr.phone}</p>
+                    <button
+                      style={{
+                        marginTop: "5px",
+                        background: "transparent",
+                        border: "none",
+                        color: "red",
+                        cursor: "pointer",
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (window.confirm("Delete this address?")) {
+                          deleteAddress(addr._id).then(loadAddresses);
+                        }
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
-            <input className={styles.inp} placeholder="Pin code *" />
-            <textarea
-              className={`${styles.inp} ${styles.textarea}`}
-              rows={4}
-              placeholder="Enter Address *"
-            />
+          )}
 
+          {/* Add Form */}
+          <div className={styles.card}>
+            <h3 className={styles.title}>Add New Address</h3>
+            <div className={styles.row2}>
+              <input
+                className={styles.inp}
+                placeholder="First Name *"
+                value={form.firstName}
+                onChange={(e) =>
+                  setForm({ ...form, firstName: e.target.value })
+                }
+              />
+              <input
+                className={styles.inp}
+                placeholder="Last Name *"
+                value={form.lastName}
+                onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+              />
+            </div>
+            <input
+              className={styles.inp}
+              placeholder="Mobile Number *"
+              value={form.phone}
+              onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            />
+            <input
+              className={styles.inp}
+              placeholder="Address *"
+              value={form.address}
+              onChange={(e) => setForm({ ...form, address: e.target.value })}
+            />
+            <div className={styles.row2}>
+              <input
+                className={styles.inp}
+                placeholder="City *"
+                value={form.city}
+                onChange={(e) => setForm({ ...form, city: e.target.value })}
+              />
+              <input
+                className={styles.inp}
+                placeholder="Pincode *"
+                value={form.postalCode}
+                onChange={(e) =>
+                  setForm({ ...form, postalCode: e.target.value })
+                }
+              />
+            </div>
             <div className={styles.actions}>
-              <button className={styles.reset}>Reset</button>
-              <button
-                className={styles.save}
-                onClick={() => dispatch(openModal({ type: "AUTH" }))}
-              >
-                Save
+              <button className={styles.save} onClick={handleSaveAddress}>
+                Save Address
               </button>
             </div>
           </div>
-
-          {/* RIGHT: summary */}
-          <aside className={styles.summary}>
-            <h3 className={styles.summaryTitle}>Order Summary</h3>
-
-            <div className={styles.line}>
-              <span>Total Items</span>
-              <span>01</span>
-            </div>
-            <div className={styles.line}>
-              <span>Total MRP</span>
-              <span>Rs. 20000</span>
-            </div>
-            <div className={styles.line}>
-              <span>Coupon Discount</span>
-              <span>0</span>
-            </div>
-
-            <hr className={styles.hr} />
-
-            <div className={`${styles.line} ${styles.total}`}>
-              <span>Total Amount</span>
-              <span>Rs. 10,000</span>
-            </div>
-
-            <button className={styles.cta} onClick={handleCTA}>
-              {isLoggedIn ? "Go to Payment" : "Log in to Proceed"}
-            </button>
-          </aside>
         </div>
 
-        {/* You may also like */}
-        {/* <section className={styles.recoSection}>
-          <h3 className={styles.recoTitle}>You May also like</h3>
-          <div className={styles.recoGrid}>
-            {RECOMMENDED.map((c) => (
-              <CategoryCard
-                key={c.slug}
-                title={c.title}
-                img={c.img}
-                to={`/event/categories/${c.slug}`}
-                classes={{
-                  ...styles,
-                  card: styles.productCard, // 👈 override .card for these
-                }}
-              />
-            ))}
-          </div>
-        </section> */}
+        {/* RIGHT: Summary */}
+        <aside className={styles.summary}>
+          <h3 className={styles.summaryTitle}>Checkout</h3>
+          <p>Selected Address ID: {selectedId ? "Selected" : "None"}</p>
+          <hr className={styles.hr} />
+          <button className={styles.cta} onClick={handleProceed}>
+            Proceed to Payment
+          </button>
+        </aside>
       </div>
-
-      {/* Footer */}
-      {/* <FooterSection /> */}
-    </>
+    </div>
   );
 }

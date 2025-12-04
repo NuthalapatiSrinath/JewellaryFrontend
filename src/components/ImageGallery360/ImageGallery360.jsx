@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import styles from "./ImageGallery360.module.css";
 
 /**
@@ -42,7 +42,8 @@ export default function ImageGallery360({ images = [], frames = [] }) {
 
   // determine thumbnails (exactly 4 cells). If fewer, repeat last
   const thumbs = images.slice(0, 4);
-  while (thumbs.length < 4) thumbs.push(images[images.length - 1] || "");
+  while (thumbs.length < 4)
+    thumbs.push(images[images.length - 1] || "/images/rings/gold.jpg");
 
   return (
     <div className={styles.gallery} aria-hidden="false">

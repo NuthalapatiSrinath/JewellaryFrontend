@@ -10,8 +10,7 @@ import PaymentStep from "../PaymentPage/PaymentPage";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../redux/slices/modalSlice";
 import FooterPage from "../FooterPage/FooterPage";
-
-/* ---------------- Clean path mapping (no /event anywhere) ---------------- */
+import { isLoggedIn as checkLogin } from "../../utils/userAuth";
 
 const PATHS = {
   CART: "/cart",
@@ -25,23 +24,22 @@ const pathToIndex = (pathname) => {
   const p = normalize(pathname);
   if (p === PATHS.PAYMENT) return 2;
   if (p === PATHS.ADDRESS) return 1;
-  if (p === PATHS.CART) return 0;
   return 0; // default to cart
 };
 
 const indexToPath = (i) =>
   i === 2 ? PATHS.PAYMENT : i === 1 ? PATHS.ADDRESS : PATHS.CART;
 
-/* ------------------------------------------------------------------------ */
-
 const CheckoutHostPage = ({ initialStep }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(checkLogin());
 
-  // derive initial step (from prop or URL)
+  // --- STATE TO SHARE BETWEEN STEPS ---
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+
   const startIndex = useMemo(() => {
     if (typeof initialStep === "number") return initialStep;
     return pathToIndex(location.pathname);
@@ -50,34 +48,26 @@ const CheckoutHostPage = ({ initialStep }) => {
   const [currentStep, setCurrentStep] = useState(startIndex);
   const [maxVisitedStep, setMaxVisitedStep] = useState(startIndex);
 
-  // listen for auth success
+  // Listen for login events
   useEffect(() => {
     const handler = () => setIsLoggedIn(true);
     window.addEventListener("auth:success", handler);
     return () => window.removeEventListener("auth:success", handler);
   }, []);
 
-  // scroll top when step changes
-  useEffect(() => {
-    setTimeout(() => window.scrollTo({ top: 0, behavior: "smooth" }), 0);
-  }, [currentStep]);
-
-  // update URL to match step
+  // Sync URL with Step
   useEffect(() => {
     const expected = indexToPath(currentStep);
     const here = normalize(location.pathname);
     if (here !== expected) navigate(expected, { replace: true });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentStep]);
+  }, [currentStep, navigate, location.pathname]);
 
-  // handle browser back/forward
+  // Handle Browser Back Button
   useEffect(() => {
     const idx = pathToIndex(location.pathname);
     if (idx !== currentStep) setCurrentStep(idx);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
+  }, [location.pathname]); // Removed currentStep from deps to avoid loop
 
-  // navigation
   const goNext = () => {
     setCurrentStep((prev) => {
       const next = Math.min(prev + 1, 2);
@@ -96,17 +86,27 @@ const CheckoutHostPage = ({ initialStep }) => {
 
   const stepContents = [
     <CartStep key="cart" onNext={goNext} />,
+
     <AddressStep
       key="checkout"
       isLoggedIn={isLoggedIn}
       onBack={goBack}
-      onNext={() => {
-        if (isLoggedIn) goNext();
-        else dispatch(openModal({ type: "AUTH" }));
+      onNext={(addrId) => {
+        if (isLoggedIn) {
+          setSelectedAddressId(addrId); // <--- Capture Address ID here
+          goNext();
+        } else {
+          dispatch(openModal({ type: "AUTH" }));
+        }
       }}
       onLoginRequest={() => dispatch(openModal({ type: "AUTH" }))}
     />,
-    <PaymentStep key="payment" onBack={goBack} />,
+
+    <PaymentStep
+      key="payment"
+      onBack={goBack}
+      shippingAddressId={selectedAddressId} // <--- Pass Address ID here
+    />,
   ];
 
   return (
@@ -122,7 +122,7 @@ const CheckoutHostPage = ({ initialStep }) => {
           />
         </div>
       </div>
-      <FooterPage/>
+      <FooterPage />
     </>
   );
 };

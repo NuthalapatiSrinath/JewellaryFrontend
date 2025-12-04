@@ -2,26 +2,36 @@
 import axios from "axios";
 import { getUserToken } from "../utils/userAuth";
 
-// FIX: Point to ROOT. (We will add /api in the routes file)
+// ✅ Point to the Domain Root (Backend hosting URL)
 const API_BASE = "https://jewellery-gules-one.vercel.app";
 
 const http = axios.create({
   baseURL: API_BASE,
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
-http.interceptors.request.use((config) => {
-  const token = getUserToken();
-  if (token) config.headers.Authorization = `Bearer ${token}`;
-  else delete config.headers.Authorization;
-  return config;
-});
+// Add Token to every request if logged in
+http.interceptors.request.use(
+  (config) => {
+    const token = getUserToken();
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
+// Log errors for easier debugging
 http.interceptors.response.use(
-  (resp) => resp,
-  (err) => {
-    console.error("[http] error:", err.config?.url, err.response?.status);
-    return Promise.reject(err);
+  (response) => response,
+  (error) => {
+    console.error("HTTP Error:", error.response?.status, error.config?.url);
+    return Promise.reject(error);
   }
 );
 

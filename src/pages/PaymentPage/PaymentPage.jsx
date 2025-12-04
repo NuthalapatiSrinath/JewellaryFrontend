@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./PaymentPage.module.css";
 
-/* reuse */
+// API Services
+import { fetchCart, clearCart } from "../../api/cartService";
+import { placeOrderRTS, placeOrderDYO } from "../../api/orderService";
+
+// Components
 import CategoryCard from "../../components/CategoryCard/CategoryCard";
 import FooterSection from "../FooterPage/FooterPage";
 
-/* You may also like (same as Cart/Address) */
+// Recommended items data (kept as requested)
 const RECOMMENDED = [
   { title: "Bouncy", img: "/images/reco/bouncy.jpg", slug: "bouncy" },
   { title: "Ball pool", img: "/images/reco/ball-pool.jpg", slug: "ball-pool" },
@@ -22,29 +26,127 @@ const RECOMMENDED = [
   },
 ];
 
-export default function PaymentPage() {
-  const [method, setMethod] = useState("upi");
+// Helper to convert full metal names to codes
+const getMetalCode = (metalStr) => {
+  if (!metalStr) return "14R";
+  const lower = metalStr.toLowerCase();
+  if (lower.includes("rose")) return "14R";
+  if (lower.includes("yellow")) return "14Y";
+  if (lower.includes("white")) return "14W";
+  if (lower.includes("platinum")) return "PT";
+  return "14R";
+};
+
+export default function PaymentPage({ shippingAddressId }) {
+  const [method, setMethod] = useState("upi"); // upi | card | cod
   const [loading, setLoading] = useState(false);
+
+  // Cart Data State
+  const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+
   const nav = useNavigate();
 
-  // lock scroll while the overlay is visible
+  // 1. Fetch Cart Data on Mount
+  useEffect(() => {
+    const loadCart = async () => {
+      try {
+        const data = await fetchCart();
+        if (data?.cart) {
+          setCartItems(data.cart.items || []);
+          setCartTotal(data.cart.total || data.cart.subtotal || 0);
+        }
+      } catch (error) {
+        console.error("Failed to load cart for payment", error);
+      }
+    };
+    loadCart();
+  }, []);
+
+  // Lock scroll while loading
   useEffect(() => {
     document.body.style.overflow = loading ? "hidden" : "";
     return () => (document.body.style.overflow = "");
   }, [loading]);
 
-  const onBookNow = () => {
-    // show overlay for ~3 seconds, then go to success page
+  // 2. Handle Order Placement
+  const onBookNow = async () => {
+    if (!shippingAddressId) {
+      alert(
+        "No shipping address selected. Please go back to the previous step."
+      );
+      return;
+    }
+
     setLoading(true);
-    setTimeout(() => {
+
+    try {
+      let paymentMethodString = "Credit Card";
+      if (method === "upi") paymentMethodString = "UPI";
+      if (method === "cod") paymentMethodString = "Cash on Delivery";
+
+      // Loop through cart items and place individual orders
+      const orderPromises = cartItems.map((item) => {
+        const commonPayload = {
+          quantity: item.quantity,
+          contactEmail: "user@example.com",
+          shippingAddressId: shippingAddressId,
+          paymentMethod: paymentMethodString,
+          discount: 0,
+        };
+
+        if (item.itemType === "dyo") {
+          // --- Design Your Own ---
+          return placeOrderDYO({
+            ...commonPayload,
+            productSku: item.productSku,
+            metal: item.selectedMetal || "18W",
+            shapeCode: item.selectedShape || "RND",
+            diamondId:
+              item.selectedDiamond?._id ||
+              item.selectedDiamond?.sku ||
+              item.diamondId,
+          });
+        } else {
+          // --- Ready To Ship ---
+          return placeOrderRTS({
+            ...commonPayload,
+            productSku:
+              item.variant?.productSku || item.productSku || "RING-001",
+            metalCode: getMetalCode(item.variant?.metalType),
+            shapeCode: item.variant?.shape_code || "RND",
+            centerStoneWeight: item.variant?.centerStoneWeight || 1.0,
+          });
+        }
+      });
+
+      // Wait for all orders to be placed
+      const results = await Promise.all(orderPromises);
+
+      // Get the last order result to pass to the success page
+      const lastOrderData = results[results.length - 1];
+
+      // Success: Clear cart and redirect
+      await clearCart();
+
+      setTimeout(() => {
+        setLoading(false);
+        // Pass order data to success page
+        nav("/checkout/success", { state: { orderData: lastOrderData } });
+      }, 1500);
+    } catch (error) {
+      console.error("Order placement failed", error);
+      let msg = "Failed to place your order.";
+      if (error.response?.data?.message)
+        msg += ` ${error.response.data.message}`;
+      alert(msg);
       setLoading(false);
-      nav("/checkout/success");
-    }, 3000);
+    }
   };
 
   return (
     <>
-      {/* blocking overlay */}
+      {/* Blocking Overlay */}
       {loading && (
         <div
           className={styles.blocker}
@@ -58,7 +160,7 @@ export default function PaymentPage() {
               </div>
             </div>
             <p className={styles.blockerText}>
-              Redirecting to payment page please don’t cancel
+              Processing your payment, please do not close...
             </p>
           </div>
         </div>
@@ -98,7 +200,7 @@ export default function PaymentPage() {
                 onChange={() => setMethod("card")}
                 className={styles.radio}
               />
-              <span className={styles.method}>Credit / debit Cards</span>
+              <span className={styles.method}>Credit / Debit Cards</span>
             </label>
 
             {method === "card" && (
@@ -130,7 +232,7 @@ export default function PaymentPage() {
                 onChange={() => setMethod("cod")}
                 className={styles.radio}
               />
-              <span className={styles.method}>Pay after service to hand</span>
+              <span className={styles.method}>Pay on Delivery (COD)</span>
             </label>
           </div>
 
@@ -140,26 +242,27 @@ export default function PaymentPage() {
 
             <div className={styles.line}>
               <span>Total Items</span>
-              <span>01</span>
+              <span>{cartItems.length}</span>
             </div>
+
             <div className={styles.line}>
-              <span>Total MRP</span>
-              <span>Rs. 20000</span>
-            </div>
-            <div className={styles.line}>
-              <span>Coupon Discount</span>
-              <span>0</span>
+              <span>Shipping</span>
+              <span style={{ color: "green" }}>Free</span>
             </div>
 
             <hr className={styles.hr} />
 
             <div className={`${styles.line} ${styles.total}`}>
               <span>Total Amount</span>
-              <span>Rs. 10,000</span>
+              <span>Rs. {cartTotal.toLocaleString()}</span>
             </div>
 
-            <button className={styles.cta} onClick={onBookNow}>
-              Book Now
+            <button
+              className={styles.cta}
+              onClick={onBookNow}
+              disabled={loading || cartItems.length === 0}
+            >
+              {loading ? "Processing..." : "Place Order"}
             </button>
           </aside>
         </div>
@@ -176,7 +279,7 @@ export default function PaymentPage() {
                 to={`/event/categories/${c.slug}`}
                 classes={{
                   ...styles,
-                  card: styles.productCard, // no white bg around these tiles
+                  card: styles.productCard,
                 }}
               />
             ))}

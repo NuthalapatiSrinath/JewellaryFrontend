@@ -6,8 +6,15 @@ export const fetchCart = async () => {
   return res.data;
 };
 
-export const addToCart = async (payload) => {
-  const res = await http.post(ROUTES.CART, payload);
+// Add Ready-To-Ship Item
+export const addToCartRTS = async (payload) => {
+  const res = await http.post(ROUTES.CART_ADD_RTS, payload);
+  return res.data;
+};
+
+// Add Design-Your-Own Item
+export const addToCartDYO = async (payload) => {
+  const res = await http.post(ROUTES.CART_ADD_DYO, payload);
   return res.data;
 };
 
@@ -21,11 +28,18 @@ export const removeCartItem = async (itemId) => {
   return res.data;
 };
 
+export const clearCart = async () => {
+  const res = await http.delete(ROUTES.CART);
+  return res.data;
+};
+
 const cartService = {
   fetchCart,
-  addToCart,
+  addToCartRTS,
+  addToCartDYO,
   updateCartItemQty,
   removeCartItem,
+  clearCart,
 };
 
 export default cartService;
